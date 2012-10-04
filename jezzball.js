@@ -181,23 +181,23 @@ function drawBackground()
 {
 
     if (backgroundImage != null) {
-	try{
-		if (backgroundImage.complete) {
-		drawingContext.drawImage(backgroundImage, 0, 0, gameWidth, gameHeight);
-		} else {
-			alert(backgroundImage.complete);
+		try{
+			if (backgroundImage.complete) {
+			drawingContext.drawImage(backgroundImage, 0, 0, gameWidth, gameHeight);
+			} else {
+				alert(backgroundImage.complete);
+			}
 		}
-	}
-	catch(err) {
-		alert(err);
-	    backgroundImage = null;
-	}
+		catch(err) {
+			alert(err);
+		    backgroundImage = null;
+		}
     } else {
-	drawingContext.beginPath();
-	drawingContext.rect(0,0,gameWidth,gameHeight);
-	drawingContext.closePath();
-	drawingContext.fillStyle = "#000000";
-	drawingContext.fill();
+		drawingContext.beginPath();
+		drawingContext.rect(0,0,gameWidth,gameHeight);
+		drawingContext.closePath();
+		drawingContext.fillStyle = "#000000";
+		drawingContext.fill();
     }
 
 
@@ -223,29 +223,30 @@ function update_and_draw()
 {
     var propuncovered = null;
     if (!gamePaused) {
-	for ( lnum in lines) {
-	    var line = lines[lnum];
-	    if (line.growing1 || line.growing2) {
-		line.grow();
-	    }
-	}
-	propuncovered = get_prop_uncovered();
-	if (propuncovered < winProportion) {
-	    winGame();
-	}
-	for ( ballnum in balls) {
-	    var ball = balls[ballnum];
-	    ball.update();
-	}
-	drawAll(propuncovered);
+		for ( lnum in lines) {
+		    var line = lines[lnum];
+		    if (line.growing1 || line.growing2) {
+			line.grow();
+		    }
+		}
+		propuncovered = get_prop_uncovered();
+		if (propuncovered < winProportion) {
+		    winGame();
+		}
+		for ( ballnum in balls) {
+		    var ball = balls[ballnum];
+		    ball.update();
+		}
+		drawAll(propuncovered);
     } else {
-	drawAll(get_prop_uncovered());
+		drawAll(get_prop_uncovered());
     }
 
 }
 
 function drawAll(propuncovered) {
     //clear();
+    alert('boo')
     drawBackground();
 
     drawingContext.setAlpha( gamePaused?.5:1);
