@@ -1,0 +1,25 @@
+#help {
+	display: none;
+}
+
+#minititle {
+	display: inline;
+}
+
+#canvas {
+	margin: 0px;
+}
+
+body {
+	margin: 10px;
+}
+
+#minititle_help {
+	background: #F2F2FF;
+	margin-bottom: 20px;
+	max-width: 600px;
+}
+
+#bottom_content {
+	text-align: center;
+}

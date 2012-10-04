@@ -498,6 +498,14 @@ function initialize()
     canvasElement = document.createElement("canvas");
     canvasElement.id = "jezzball_canvas";
 
+    if ($.browser.mobile) {
+    	gameWidth = screen.width - 20;
+    	$('#minititle_help').css('max-width', '' + gameWidth + 'px');
+    	var titleHeight = $('#title').height(),
+    	miniTitleHeight = $('#minititle').height();
+    	gameHeight = screen.height - titleHeight - miniTitleHeight;
+    }
+
     canvasElement.width = gameWidth;
     canvasElement.height = gameHeight;
 
