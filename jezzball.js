@@ -532,3 +532,16 @@ function initialize()
 $(document).ready(function(){
 	setTimeout(initialize, 300);
 });
+
+
+
+function helpToggle() {
+	$('#help').toggle();
+	if ($.browser.mobile) {
+		if ($('#help').is(":visible")) {
+			window.scrollTo(0, gameHeight + $('#title').height())
+		} else {
+			window.scrollTo(0,1)
+		}
+	}
+}
