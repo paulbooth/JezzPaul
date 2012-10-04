@@ -464,6 +464,7 @@ function touchmove(evt)
 function touchend(evt)
 {
 	alert('hi')
+	alert(evt.targetTouches.length)
 	if (evt.targetTouches.length) {
 		var touch = evt.targetTouches[0];
 		var x = touch.pageX - canvasMinX;
@@ -535,7 +536,9 @@ function initialize()
     canvasElement.width = gameWidth;
     canvasElement.height = gameHeight;
 
-    canvasElement.onmousedown = mousedown;
+    if (!$.browser.mobile) {
+	    canvasElement.onmousedown = mousedown;
+	}
     canvasElement.ontouchmove = touchmove;
     canvasElement.ontouchend = touchend;
     //canvasElement.onmouseup   = mouseup;
