@@ -482,6 +482,7 @@ function touchend(evt)
 		if (lastTouchY && lastTouchX && touchX && touchY) {
 			var type = (touchX  - lastTouchX) * (touchX  - lastTouchX) > (touchY  - lastTouchY) * (touchY  - lastTouchY) ? 2 : 0;
 			var x = (touchX - lastTouchX) / 2  - canvasMinX, y = (touchY - lastTouchY) / 2 - canvasMinY;
+			alert([x,y]);
 			if (!point_inline(x, y)){
 				var rect = point_inrect(x, y);
 				if (rect)
