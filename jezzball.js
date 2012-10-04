@@ -497,7 +497,7 @@ function initialize()
 {
     canvasElement = document.createElement("canvas");
     canvasElement.id = "jezzball_canvas";
-
+    alert('hi!');
     if ($.browser.mobile) {
     	gameWidth = screen.width - 20;
     	$('#minititle_help').css('max-width', '' + gameWidth + 'px');
