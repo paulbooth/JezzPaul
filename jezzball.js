@@ -22,6 +22,10 @@ var textColor = [125,125,125];
 var balls = [];
 var lines = [];
 
+// keep track of where we moused down to swipe detect
+var mousedownX = 0;
+var mousedownY = 0;
+
 function Ball(x, y, r, dx, dy) {
     this.x = x;
     this.y = y;
@@ -273,7 +277,7 @@ function drawText() {
 	+textColor.toString()+",1)";
     //drawingContext.fillStyle = "rgba(0,0,0,.75)";
     drawingContext.drawTextCenter(font, fontsize, gameWidth/2, y, gameWon?"YOU WIN!!!":"YOU LOSE!!!");
-    drawingContext.drawTextCenter(font, fontsize, gameWidth/2, y, gameWon?"YOU WIN!!!":"YOU LOSE!!!");
+    //drawingContext.drawTextCenter(font, fontsize, gameWidth/2, y, gameWon?"YOU WIN!!!":"YOU LOSE!!!");
 }
 
 function drawProp(rect, propuncovered) {
@@ -511,6 +515,7 @@ function initialize()
     canvasElement.height = gameHeight;
 
     canvasElement.onmousedown = mousedown;
+    canvasElement.ontouchmove = function() { alert('hi')};
     //canvasElement.onmouseup   = mouseup;
     canvasElement.onkeydown = keydown;
     canvasElement.oncontextmenu="return false;";
