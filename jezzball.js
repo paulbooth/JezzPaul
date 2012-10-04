@@ -185,7 +185,7 @@ function drawBackground()
 	drawingContext.drawImage(backgroundImage, 0, 0, gameWidth, gameHeight);
 	}
 	catch(err) {
-		alert(drawingContext);
+		alert(backgroundImage);
 	    backgroundImage = null;
 	}
     } else {
