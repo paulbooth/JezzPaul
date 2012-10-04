@@ -452,13 +452,20 @@ function mouseup(evt)
 
 }
 
+function touchstart(evt)
+{
+	if (evt.targetTouches.length) {
+		var touch = evt.targetTouches[0];
+		lastTouchX = touch.pageX - canvasMinX;
+		lastTouchY = touch.pageY - canvasMinY;
+	}
+}
+
 function touchmove(evt)
 {
 	evt.preventDefault();
 	if (evt.targetTouches.length) {
 		var touch = evt.targetTouches[0];
-		lastTouchX = touchX;
-		lastTouchY = touchY;
 		touchX = touch.pageX - canvasMinX;
 		touchY = touch.pageY - canvasMinY;
 	}
@@ -549,6 +556,7 @@ function initialize()
     if (!$.browser.mobile) {
 	    canvasElement.onmousedown = mousedown;
 	}
+	canvasElement.ontouchstart = touchstart;
     canvasElement.ontouchmove = touchmove;
     canvasElement.ontouchend = touchend;
     //canvasElement.onmouseup   = mouseup;
