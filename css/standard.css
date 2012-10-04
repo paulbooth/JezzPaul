@@ -8,6 +8,8 @@
 
 #canvas {
 	margin: 0px;
+	-moz-user-select: none; /* mozilla browsers */
+  	-khtml-user-select: none; /* webkit browsers */
 }
 
 #jezzball_canvas {
