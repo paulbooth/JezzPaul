@@ -497,7 +497,6 @@ function initialize()
 {
     canvasElement = document.createElement("canvas");
     canvasElement.id = "jezzball_canvas";
-    alert('hi!');
     if ($.browser.mobile) {
     	gameWidth = screen.width - 20;
     	$('#minititle_help').css('max-width', '' + gameWidth + 'px');
@@ -529,4 +528,6 @@ function initialize()
     return setInterval(update_and_draw, updateTimer);
 }
 
-$(document).ready(initialize);
+$(document).ready(function(){
+	setTimeout(initialize, 300);
+});
