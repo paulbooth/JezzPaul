@@ -22,9 +22,8 @@ var textColor = [125,125,125];
 var balls = [];
 var lines = [];
 
-// keep track of where we moused down to swipe detect
-var mousedownX = 0;
-var mousedownY = 0;
+// last touchX and Y position to detect which type of swipe was encountered
+var touchX, touchY;
 
 function Ball(x, y, r, dx, dy) {
     this.x = x;
@@ -426,30 +425,51 @@ function loseGame() {
 function mousedown(evt)
 {
     if (gamePaused) {
-	gamePaused = false;
-	initializeGame();
+		gamePaused = false;
+		initializeGame();
     } else {
-	var x = evt.pageX - canvasMinX;
-	var y = evt.pageY - canvasMinY;
-	var type = evt.button;
+		var x = evt.pageX - canvasMinX;
+		var y = evt.pageY - canvasMinY;
+		var type = evt.button;
 
-	if (type == 1) {
-	    //alert(point_inrect(x, y));
-	    //  addRandomBall(balls[Math.floor ( Math.random() * balls.length )].rect);
-	    //toggleShadow();
-	}
-	else
-	    if (!point_inline(x, y)){
-		var rect = point_inrect(x, y);
-		if (rect)
-		    lines.push(new Line(x, y, rect, type));
-	    }
+		if (type == 1) {
+		    //alert(point_inrect(x, y));
+		    //  addRandomBall(balls[Math.floor ( Math.random() * balls.length )].rect);
+		    //toggleShadow();
+		}
+		else {
+		    if (!point_inline(x, y)){
+			var rect = point_inrect(x, y);
+			if (rect)
+			    lines.push(new Line(x, y, rect, type));
+		    }
+		}
     }
 }
 
 function mouseup(evt)
 {
 
+}
+
+function touchmove(evt)
+{
+	if (evt.targetTouches.length) {
+		var touch = evt.targetTouches[0];
+		touchX = touch.pageX - canvasMinX;
+		touchY = touch.pageY - canvasMinY;
+	}
+}
+
+function touchend(evt)
+{
+	if (evt.targetTouches.length) {
+		var touch = evt.targetTouches[0];
+		var x = touch.pageX - canvasMinX;
+		var y = touch.pageY - canvasMinY;
+		alert(x - touchX)
+		alert(y - touchY)
+	}
 }
 
 function keydown(evt)
@@ -515,9 +535,10 @@ function initialize()
     canvasElement.height = gameHeight;
 
     canvasElement.onmousedown = mousedown;
-    canvasElement.ontouchmove = function() { alert('hi')};
+    canvasElement.ontouchmove = touchmove;
+    canvasElement.ontouchend = touchend;
     //canvasElement.onmouseup   = mouseup;
-    canvasElement.onkeydown = keydown;
+    //canvasElement.onkeydown = keydown;
     canvasElement.oncontextmenu="return false;";
     var title = document.getElementById("title");
     if (title)
