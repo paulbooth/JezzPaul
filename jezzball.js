@@ -537,8 +537,10 @@ $(document).ready(function(){
 
 function helpToggle() {
 	$('#help').toggle();
+	alert('hi')
 	if ($.browser.mobile) {
 		if ($('#help').is(":visible")) {
+			alert('cool')
 			window.scrollTo(0, gameHeight + $('#title').height())
 		} else {
 			window.scrollTo(0,1)
