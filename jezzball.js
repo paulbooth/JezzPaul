@@ -185,6 +185,7 @@ function drawBackground()
 	drawingContext.drawImage(backgroundImage, 0, 0, gameWidth, gameHeight);
 	}
 	catch(err) {
+		alert(err);
 	    backgroundImage = null;
 	}
     } else {
@@ -521,8 +522,6 @@ function initializeGame()
     for(var i=0;i<gameLevel;i++)
 	addRandomBall(rect);
     backgroundImage.src = "http://catsinsinks.com/images/cats/rotator.php?"+Math.random();
-    alert(backgroundImage.complete);
-    alert(backgroundImage.complete);
 }
 
 /*function toggleShadow() {
