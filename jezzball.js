@@ -454,6 +454,7 @@ function mouseup(evt)
 
 function touchstart(evt)
 {
+	evt.preventDefault();
 	if (evt.targetTouches.length) {
 		var touch = evt.targetTouches[0];
 		lastTouchX = touch.pageX - canvasMinX;
@@ -473,6 +474,7 @@ function touchmove(evt)
 
 function touchend(evt)
 {
+	evt.preventDefault();
 	if (gamePaused) {
 		gamePaused = false;
 		initializeGame();
