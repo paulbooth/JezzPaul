@@ -185,7 +185,7 @@ function drawBackground()
 			if (backgroundImage.complete) {
 			drawingContext.drawImage(backgroundImage, 0, 0, gameWidth, gameHeight);
 			} else {
-				setTimeout(function() { backgroundImage.complete}, 0);
+				//setTimeout(function() { backgroundImage.complete}, 0);
 			}
 		}
 		catch(err) {
