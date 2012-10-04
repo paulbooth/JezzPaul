@@ -521,6 +521,7 @@ function initializeGame()
     for(var i=0;i<gameLevel;i++)
 	addRandomBall(rect);
     backgroundImage.src = "http://catsinsinks.com/images/cats/rotator.php?"+Math.random();
+    alert(backgroundImage.src)
 }
 
 /*function toggleShadow() {
