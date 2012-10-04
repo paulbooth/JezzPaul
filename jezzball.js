@@ -184,8 +184,6 @@ function drawBackground()
 		try{
 			if (backgroundImage.complete) {
 			drawingContext.drawImage(backgroundImage, 0, 0, gameWidth, gameHeight);
-			} else {
-				//setTimeout(function() { backgroundImage.complete}, 0);
 			}
 		}
 		catch(err) {
@@ -554,6 +552,9 @@ function initialize()
     	var titleHeight = $('#title').height(),
     	miniTitleHeight = $('#minititle').height();
     	gameHeight = screen.height - titleHeight - miniTitleHeight;
+
+    	$('.mouse_help').hide();
+    	$('.touch_help').show();
     	window.scrollTo(0, 1); //hide address bar
     }
 
