@@ -467,8 +467,8 @@ function touchend(evt)
 		var touch = evt.targetTouches[0];
 		var x = touch.pageX - canvasMinX;
 		var y = touch.pageY - canvasMinY;
-		alert(x - touchX)
-		alert(y - touchY)
+		alert( "" + (x - touchX));
+		alert("" + (y - touchY));
 	}
 }
 
