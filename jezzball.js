@@ -463,6 +463,7 @@ function touchmove(evt)
 
 function touchend(evt)
 {
+	alert('hi')
 	if (evt.targetTouches.length) {
 		var touch = evt.targetTouches[0];
 		var x = touch.pageX - canvasMinX;
