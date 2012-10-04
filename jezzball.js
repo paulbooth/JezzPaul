@@ -515,13 +515,13 @@ function addRandomBall(rect) {
 
 function initializeGame()
 {
-	alert('initialize');
     balls = [];
     lines = [];
     var rect = [0,0,gameWidth,gameHeight];
     for(var i=0;i<gameLevel;i++)
 	addRandomBall(rect);
     backgroundImage.src = "http://catsinsinks.com/images/cats/rotator.php?"+Math.random();
+    alert(backgroundImage.src);
 }
 
 /*function toggleShadow() {
