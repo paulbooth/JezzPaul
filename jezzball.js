@@ -247,7 +247,6 @@ function update_and_draw()
 
 function drawAll(propuncovered) {
     //clear();
-    alert('boo')
     drawBackground();
 
     drawingContext.setAlpha( gamePaused?.5:1);
