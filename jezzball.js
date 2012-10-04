@@ -183,6 +183,7 @@ function drawBackground()
     if (backgroundImage != null) {
 		try{
 			if (backgroundImage.complete) {
+				alert('okay')
 			drawingContext.drawImage(backgroundImage, 0, 0, gameWidth, gameHeight);
 			} else {
 				alert(backgroundImage.complete);
