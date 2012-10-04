@@ -504,6 +504,7 @@ function initialize()
     	var titleHeight = $('#title').height(),
     	miniTitleHeight = $('#minititle').height();
     	gameHeight = screen.height - titleHeight - miniTitleHeight;
+    	window.scrollTo(0, 1); //hide address bar
     }
 
     canvasElement.width = gameWidth;
