@@ -454,8 +454,8 @@ function mouseup(evt)
 
 function touchmove(evt)
 {
+	evt.preventDefault();
 	if (evt.targetTouches.length) {
-		evt.preventDefault();
 		var touch = evt.targetTouches[0];
 		lastTouchX = touchX;
 		lastTouchY = touchY;
