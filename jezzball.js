@@ -23,7 +23,7 @@ var balls = [];
 var lines = [];
 
 // last touchX and Y position to detect which type of swipe was encountered
-var touchX, touchY;
+var touchX, touchY, lastTouchX, lastTouchY;
 
 function Ball(x, y, r, dx, dy) {
     this.x = x;
@@ -456,6 +456,8 @@ function touchmove(evt)
 {
 	if (evt.targetTouches.length) {
 		var touch = evt.targetTouches[0];
+		lastTouchX = touchX;
+		lastTouchY = touchY;
 		touchX = touch.pageX - canvasMinX;
 		touchY = touch.pageY - canvasMinY;
 	}
@@ -463,14 +465,21 @@ function touchmove(evt)
 
 function touchend(evt)
 {
-	alert('hi')
-	alert(evt.targetTouches.length)
-	if (evt.targetTouches.length) {
-		var touch = evt.targetTouches[0];
-		var x = touch.pageX - canvasMinX;
-		var y = touch.pageY - canvasMinY;
-		alert( "" + (x - touchX));
-		alert("" + (y - touchY));
+	if (gamePaused) {
+		gamePaused = false;
+		initializeGame();
+    } else {
+		if (lastTouchY && lastTouchX && touchX && touchY) {
+			var type = (touchX  - lastTouchX) * (touchX  - lastTouchX) > (touchY  - lastTouchY) * (touchY  - lastTouchY) ? 2 : 0;
+			var x = touchX, y = touchY;
+			if (!point_inline(x, y)){
+				var rect = point_inrect(x, y);
+				if (rect)
+				    lines.push(new Line(x, y, rect, type));
+		    }
+		    // reset touch variables
+			lastTouchX = lastTouchY = touchX = touchY = null;
+		}
 	}
 }
 
