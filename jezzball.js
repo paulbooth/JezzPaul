@@ -28,6 +28,7 @@ var touchX, touchY, lastTouchX, lastTouchY;
 // set up the requestAnimFrame method with fallbacks
 window.requestAnimFrame = function(){
     return (
+    	window.requestAnimFrame            ||
         window.requestAnimationFrame       || 
         window.webkitRequestAnimationFrame || 
         window.mozRequestAnimationFrame    || 
@@ -593,12 +594,7 @@ function initialize()
     canvasMinX = canvasElement.offsetLeft;
     canvasMinY = canvasElement.offsetTop;
     //should make sure it's not null. whatever...
-    if (window.WebGLRenderingContext && false) {
-	  // browser supports WebGL
-	  drawingContext = canvasElement.getContext("experimental-webgl");
-	} else {
-		drawingContext = canvasElement.getContext("2d");
-	}
+	drawingContext = canvasElement.getContext("2d");
     
     CanvasTextFunctions.enable(drawingContext);
     initializeGame();
