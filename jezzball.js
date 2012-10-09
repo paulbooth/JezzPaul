@@ -608,6 +608,7 @@ function initialize()
 	    canvasElement.onmousedown = mousedown;
 	    // canvasElement is not focusable
     	document.onkeydown = keydown;
+    	setTimeout(addFacebookIntegration, 10);
 	} else {
 		canvasElement.ontouchstart = touchstart;
 	    canvasElement.ontouchmove = touchmove;
@@ -615,9 +616,9 @@ function initialize()
 	}
     //canvasElement.onmouseup   = mouseup;
     canvasElement.oncontextmenu="return false;";
-    var title = document.getElementById("title");
-    if (title)
-	document.body.insertBefore(canvasElement, title.nextSibling);
+    var canvastag = document.getElementById("canvas");
+    if (canvastag)
+    	$(canvastag).append(canvasElement);
     else
 	document.body.insertBefore(canvasElement,document.body.childNodes[0]);
     //    document.body.appendChild(canvasElement);
@@ -636,7 +637,9 @@ $(document).ready(function(){
 	setTimeout(initialize, 300);
 });
 
-
+function addFacebookIntegration() {
+	$('#facebook').html('<iframe src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FJezzPaul%2F118615994880476&amp;width=300&amp;colorscheme=light&amp;show_faces=true&amp;stream=true&amp;header=true&amp;height=427" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:300px; height:427px;" allowTransparency="true"></iframe>');
+}
 
 function helpToggle() {
 	$('#help').toggle();

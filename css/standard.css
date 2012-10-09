@@ -40,3 +40,7 @@ body {
 .touch_help {
 	display: none;
 }
+
+#facebook {
+	float: right;
+}
