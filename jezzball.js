@@ -14,6 +14,7 @@ var winProportion = .2;
 
 var backgroundImage = new Image();
 var gamePaused = false;
+var switchLines = false;
 var gameWon = true;
 var textColor = [125,125,125];
 //var shadowOn = 0;
@@ -216,18 +217,34 @@ function drawBackground()
 
 
     for (ballnum in balls){
-	drawingContext.beginPath();
-	var rect = balls[ballnum].rect;
-	drawingContext.rect(rect[0],rect[1],rect[2]-rect[0],rect[3]-rect[1]);
-	drawingContext.closePath();
-	drawingContext.fillStyle = "#FFFFFF";
-	drawingContext.strokeStyle = "#AA0000";
-	drawingContext.lineWidth = lineWidth;
-	drawingContext.fill();
-	drawingContext.stroke();
-	drawingContext.fillStyle = "#0000FF";
-	drawCircle(rect[0], rect[1], 10);
-	drawCircle(rect[2], rect[3], 10);
+		drawingContext.beginPath();
+		var rect = balls[ballnum].rect;
+		drawingContext.rect(rect[0],rect[1],rect[2]-rect[0],rect[3]-rect[1]);
+		drawingContext.closePath();
+		drawingContext.fillStyle = "#FFFFFF";
+		drawingContext.strokeStyle = "#AA0000";
+		drawingContext.lineWidth = lineWidth;
+		drawingContext.fill();
+		drawingContext.stroke();
+		drawingContext.fillStyle = "#0000FF";
+		drawCircle(rect[0], rect[1], 10);
+		drawCircle(rect[2], rect[3], 10);
+    }
+
+    if (!$.browser.mobile) {
+    	drawingContext.beginPath();
+    	if (switchLines) {
+    		drawingContext.strokeStyle = "#AAAA00"
+    		drawingContext.moveTo(10, 20);
+	    	drawingContext.lineTo(30, 20);
+    	} else {
+			drawingContext.strokeStyle = "#AAAA00"
+    		drawingContext.moveTo(20, 10);
+	    	drawingContext.lineTo(20, 30);
+    	}
+    	drawingContext.closePath();
+    	drawingContext.stroke();
+
     }
 
 }
@@ -457,9 +474,10 @@ function mousedown(evt)
 		}
 		else {
 		    if (!point_inline(x, y)){
-			var rect = point_inrect(x, y);
-			if (rect)
-			    lines.push(new Line(x, y, rect, type));
+				var rect = point_inrect(x, y);
+				if (rect) {
+				    lines.push(new Line(x, y, rect, switchLines ? (2 - type) : type ));
+				}
 		    }
 		}
     }
@@ -513,7 +531,12 @@ function touchend(evt)
 
 function keydown(evt)
 {
-
+	evt = evt || window.event;
+	// spacebar
+	if (evt.which == 32) {
+		switchLines = !switchLines;
+		evt.preventDefault();
+	}
 }
 
 function addRandomBall(rect) {
@@ -578,12 +601,14 @@ function initialize()
 
     if (!$.browser.mobile) {
 	    canvasElement.onmousedown = mousedown;
+	    // canvasElement is not focusable
+    	document.onkeydown = keydown;
+	} else {
+		canvasElement.ontouchstart = touchstart;
+	    canvasElement.ontouchmove = touchmove;
+	    canvasElement.ontouchend = touchend;
 	}
-	canvasElement.ontouchstart = touchstart;
-    canvasElement.ontouchmove = touchmove;
-    canvasElement.ontouchend = touchend;
     //canvasElement.onmouseup   = mouseup;
-    //canvasElement.onkeydown = keydown;
     canvasElement.oncontextmenu="return false;";
     var title = document.getElementById("title");
     if (title)

@@ -12,6 +12,7 @@
 
 #jezzball_canvas {
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	cursor: crosshair;
 }
 
 body {
