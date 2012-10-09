@@ -25,6 +25,20 @@ var lines = [];
 // last touchX and Y position to detect which type of swipe was encountered
 var touchX, touchY, lastTouchX, lastTouchY;
 
+// set up the requestAnimFrame method with fallbacks
+window.requestAnimFrame = function(){
+    return (
+        window.requestAnimationFrame       || 
+        window.webkitRequestAnimationFrame || 
+        window.mozRequestAnimationFrame    || 
+        window.oRequestAnimationFrame      || 
+        window.msRequestAnimationFrame     || 
+        function(/* function */ callback){
+            window.setTimeout(callback, 1000 / 60);
+        }
+    );
+}();
+
 function Ball(x, y, r, dx, dy) {
     this.x = x;
     this.y = y;
