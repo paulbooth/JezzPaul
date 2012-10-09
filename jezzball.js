@@ -232,6 +232,8 @@ function drawBackground()
     }
 
     if (!$.browser.mobile) {
+
+    	//line help
     	drawingContext.beginPath();
     	if (switchLines) {
     		drawingContext.strokeStyle = "#AAAA00"
@@ -244,7 +246,7 @@ function drawBackground()
     	}
     	drawingContext.closePath();
     	drawingContext.stroke();
-
+    	drawingContext.drawTextCenter("sans", 10, 50, 25, "space");
     }
 
 }
@@ -311,6 +313,8 @@ function drawText() {
 	+textColor.toString()+",1)";
     //drawingContext.fillStyle = "rgba(0,0,0,.75)";
     drawingContext.drawTextCenter(font, fontsize, gameWidth/2, y, gameWon?"YOU WIN!!!":"YOU LOSE!!!");
+    drawingContext.drawTextCenter(font, fontsize/2, gameWidth/2, y + fontsize, "Click to continue!");
+    
     //drawingContext.drawTextCenter(font, fontsize, gameWidth/2, y, gameWon?"YOU WIN!!!":"YOU LOSE!!!");
 }
 
@@ -535,6 +539,7 @@ function keydown(evt)
 	// spacebar
 	if (evt.which == 32) {
 		switchLines = !switchLines;
+		$('#jezzball_canvas').css('cursor', switchLines? 'e-resize' : 'n-resize')
 		evt.preventDefault();
 	}
 }
