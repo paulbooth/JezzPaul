@@ -183,7 +183,7 @@ function drawBackground()
     if (backgroundImage != null) {
 		try{
 			if (backgroundImage.complete) {
-			drawingContext.drawImage(backgroundImage, 0, 0, gameWidth, gameHeight);
+				drawingContext.drawImage(backgroundImage, 0, 0, gameWidth, gameHeight);
 			}
 		}
 		catch(err) {
@@ -217,29 +217,29 @@ function drawBackground()
 
 }
 
-function update_and_draw()
+function update()
 {
-    var propuncovered = null;
-    if (!gamePaused) {
-		for ( lnum in lines) {
-		    var line = lines[lnum];
-		    if (line.growing1 || line.growing2) {
-			line.grow();
-		    }
-		}
-		propuncovered = get_prop_uncovered();
-		if (propuncovered < winProportion) {
-		    winGame();
-		}
-		for ( ballnum in balls) {
-		    var ball = balls[ballnum];
-		    ball.update();
-		}
-		drawAll(propuncovered);
-    } else {
-		drawAll(get_prop_uncovered());
+    if (gamePaused) {
+    	return
     }
+	for ( lnum in lines) {
+	    var line = lines[lnum];
+	    if (line.growing1 || line.growing2) {
+		line.grow();
+	    }
+	}
+	if (get_prop_uncovered() < winProportion) {
+	    winGame();
+	}
+	for ( ballnum in balls) {
+	    var ball = balls[ballnum];
+	    ball.update();
+	}
+}
 
+function draw() {
+	window.requestAnimFrame(draw, canvasElement);
+	drawAll(get_prop_uncovered());
 }
 
 function drawAll(propuncovered) {
@@ -579,10 +579,17 @@ function initialize()
     canvasMinX = canvasElement.offsetLeft;
     canvasMinY = canvasElement.offsetTop;
     //should make sure it's not null. whatever...
-    drawingContext = canvasElement.getContext("2d");
+    if (window.WebGLRenderingContext && false) {
+	  // browser supports WebGL
+	  drawingContext = canvasElement.getContext("experimental-webgl");
+	} else {
+		drawingContext = canvasElement.getContext("2d");
+	}
+    
     CanvasTextFunctions.enable(drawingContext);
     initializeGame();
-    return setInterval(update_and_draw, updateTimer);
+    draw();
+    return setInterval(update, updateTimer);
 }
 
 $(document).ready(function(){
