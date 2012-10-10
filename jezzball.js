@@ -26,6 +26,9 @@ var lines = [];
 // last touchX and Y position to detect which type of swipe was encountered
 var touchX, touchY, lastTouchX, lastTouchY;
 
+// last mouseX and Y for drawing the cursor in mac
+var mouseX = 40, mouseY = 40;
+
 // set up the requestAnimFrame method with fallbacks
 window.requestAnimFrame = function(){
     return (
@@ -251,6 +254,24 @@ function drawBackground()
 
 }
 
+
+// draws a mouse cursor
+function drawMouseCursor()
+{
+	drawingContext.beginPath();
+	drawingContext.strokeStyle = "#AAAA00"
+	if (switchLines) {
+		drawingContext.moveTo(mouseX - 10, mouseY);
+    	drawingContext.lineTo(mouseX + 10, mouseY);
+	} else {
+		
+		drawingContext.moveTo(mouseX, mouseY - 10);
+    	drawingContext.lineTo(mouseX, mouseY + 10);
+	}
+	drawingContext.closePath();
+	drawingContext.stroke();
+}
+
 function update()
 {
     if (gamePaused) {
@@ -279,8 +300,10 @@ function draw() {
 function drawAll(propuncovered) {
     //clear();
     drawBackground();
-
-    drawingContext.setAlpha( gamePaused?.5:1);
+    drawMouseCursor();
+    if (!$.browser.mozilla) {
+	    drawingContext.setAlpha( gamePaused?.5:1);
+	}
     for ( ballnum in balls) {
 	var ball = balls[ballnum];
 	ball.draw();
@@ -492,6 +515,12 @@ function mouseup(evt)
 
 }
 
+function mousemove(evt)
+{
+	mouseX = evt.pageX - canvasMinX;
+	mouseY = evt.pageY - canvasMinY;
+}
+
 function touchstart(evt)
 {
 	evt.preventDefault();
@@ -544,7 +573,7 @@ function keydown(evt)
 	// spacebar
 	if (evt.which == 32) {
 		switchLines = !switchLines;
-		$('#jezzball_canvas').css('cursor', switchLines? 'e-resize' : 'n-resize')
+		//$('#jezzball_canvas').css('cursor', switchLines? 'e-resize' : 'n-resize')
 		evt.preventDefault();
 		if (gamePaused) {
 			gamePaused = false;
@@ -615,6 +644,7 @@ function initialize()
 
     if (!$.browser.mobile) {
 	    canvasElement.onmousedown = mousedown;
+	    canvasElement.onmousemove = mousemove;
 	    // canvasElement is not focusable
     	document.onkeydown = keydown;
     	setTimeout(addFacebookIntegration, 10);
