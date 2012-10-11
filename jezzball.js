@@ -670,7 +670,12 @@ function initialize()
 	    // try to scroll to it again in half a second
 	    setTimeout(hideAddressBar, 500);
 	    window.addEventListener("orientationchange", hideAddressBar );
-	    window.onscroll = function() {alert("scroll");};
+	    window.onscroll = function(evt) {
+	    	var nVScroll = document.documentElement.scrollTop || document.body.scrollTop;
+	    	if (nVScroll > 0) {
+	    		alert("scroll:" + page);
+	    	}
+	    };
 	}
     //canvasElement.onmouseup   = mouseup;
     canvasElement.oncontextmenu="return false;";
