@@ -324,7 +324,7 @@ function drawAll(propuncovered) {
 
 function drawText() {
     var font = "sans";
-    var fontsize = 78;
+    var fontsize = 3 * gameWidth / 20;
     var y = drawingContext.fontAscent(font, fontsize);
     for (var i = 0; i < textColor.length; i++) {
 	textColor[i] = Math.min(
