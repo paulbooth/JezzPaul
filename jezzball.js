@@ -672,8 +672,9 @@ function initialize()
 	    window.addEventListener("orientationchange", hideAddressBar );
 	    window.onscroll = function(evt) {
 	    	var nVScroll = document.documentElement.scrollTop || document.body.scrollTop || pageYOffset;
-	    	if (nVScroll > 0) {
+	    	if (nVScroll > $('#title').height()) {
 	    		alert("scroll:" + nVScroll + ":" + pageYOffset);
+	    		hideAddressBar();
 	    	}
 	    };
 	}
