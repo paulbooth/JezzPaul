@@ -654,6 +654,10 @@ function initialize()
 	    canvasElement.ontouchmove = touchmove;
 	    canvasElement.ontouchend = touchend;
 	    window.scrollTo(0, 1); //hide address bar
+	    // try to scroll to it again in half a second
+	    setTimeout(function() {
+	    	window.scrollTo(0, 1);
+	    }, 500);
 	}
     //canvasElement.onmouseup   = mouseup;
     canvasElement.oncontextmenu="return false;";
