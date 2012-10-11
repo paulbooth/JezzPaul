@@ -656,6 +656,7 @@ function initialize()
 	    hideAddressBar(); //hide address bar
 	    if(document.height < window.outerHeight)
 		{
+			alert("boo " + document.height + " : " + window.outerHeight);
 			document.body.style.height = (window.outerHeight + 50) + 'px';
 		}
 	    // try to scroll to it again in half a second
