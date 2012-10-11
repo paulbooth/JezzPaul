@@ -649,7 +649,7 @@ function initialize()
 	    canvasElement.onmousemove = mousemove;
 	    // canvasElement is not focusable
     	document.onkeydown = keydown;
-    	setTimeout(addFacebookIntegration, 10);
+    	//setTimeout(addFacebookIntegration, 10);
 	} else {
 		document.ontouchstart = document.ontouchmove = document.ontouchend = document.body.ontouchstart = preventDefault;
 		canvasElement.ontouchstart = touchstart;
@@ -689,23 +689,23 @@ $(document).ready(function(){
 });
 
 function addFacebookIntegration() {
-	$('#facebook').html('<div class="fb-like" data-href="http://jezzpaul.com" data-send="false" data-width="450" data-height="30" data-show-faces="true" data-font="arial"></div> \
-        <div> \
-          <a href="https://twitter.com/share" class="twitter-share-button" data-via="thepaulbooth" data-size="large">Tweet</a> \
-          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="http://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script> \
-        </div> \
-        <!-- Place this tag where you want the +1 button to render. --> \
-        <div class="g-plusone" data-annotation="inline" data-width="300"></div> \
- \
-        <!-- Place this tag after the last +1 button tag. --> \
-        <script type="text/javascript"> \
-          (function() { \
-            var po = document.createElement("script"); po.type = "text/javascript"; po.async = true; \
-            po.src = "https://apis.google.com/js/plusone.js"; \
-            var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s); \
-          })(); \
-        </script> \
-        <iframe src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FJezzPaul%2F118615994880476&amp;width=300&amp;colorscheme=light&amp;show_faces=true&amp;stream=true&amp;header=true&amp;height=427" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:300px; height:427px;" allowTransparency="true"></iframe>');
+	$('#facebook').html('<div class="fb-like" data-href="http://jezzpaul.com" data-send="false" data-width="450" data-show-faces="true" data-font="arial"></div> ');//\
+        // <div> \
+        //   <a href="https://twitter.com/share" class="twitter-share-button" data-via="thepaulbooth" data-size="large">Tweet</a> \
+        //   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="http://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script> \
+        // </div> '); //\
+ //        <!-- Place this tag where you want the +1 button to render. --> \
+ //        <div class="g-plusone" data-annotation="inline" data-width="300"></div> \
+ // \
+ //        <!-- Place this tag after the last +1 button tag. --> \
+ //        <script type="text/javascript"> \
+ //          (function() { \
+ //            var po = document.createElement("script"); po.type = "text/javascript"; po.async = true; \
+ //            po.src = "https://apis.google.com/js/plusone.js"; \
+ //            var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s); \
+ //          })(); \
+ //        </script> \
+ //        <iframe src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FJezzPaul%2F118615994880476&amp;width=300&amp;colorscheme=light&amp;show_faces=true&amp;stream=true&amp;header=true&amp;height=427" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:300px; height:427px;" allowTransparency="true"></iframe>');
 }
 
 function helpToggle() {
