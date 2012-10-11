@@ -249,7 +249,7 @@ function drawBackground()
     	}
     	drawingContext.closePath();
     	drawingContext.stroke();
-    	drawingContext.drawTextCenter("sans", 10, 30, 25, "space");
+    	drawingContext.drawTextCenter("sans", 10, 50, 25, "space");
     } else {
     	drawingContext.drawTextCenter("sans", 10, 30, 25, gamePaused? "tap" : "swipe");
     }
