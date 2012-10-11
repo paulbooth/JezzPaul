@@ -206,8 +206,13 @@ function drawBackground()
 			}
 		}
 		catch(err) {
-			alert(err);
+			//alert(err);
 		    backgroundImage = null;
+		    drawingContext.beginPath();
+			drawingContext.rect(0,0,gameWidth,gameHeight);
+			drawingContext.closePath();
+			drawingContext.fillStyle = "#000000";
+			drawingContext.fill();
 		}
     } else {
 		drawingContext.beginPath();
@@ -632,12 +637,12 @@ function initialize()
     canvasElement = document.createElement("canvas");
     canvasElement.id = "jezzball_canvas";
     if ($.browser.mobile) {
-    	gameWidth = screen.availWidth - 20;
+    	gameWidth = Math.min(screen.availWidth, screen.width) - 20;
     	$('#minititle_help').css('max-width', '' + gameWidth + 'px');
     	$('#bottom_content').css('max-width', '' + gameWidth + 'px');
     	var titleHeight = $('#title').height(),
     	miniTitleHeight = $('#minititle').height();
-    	gameHeight = screen.availHeight - titleHeight - miniTitleHeight;
+    	gameHeight = Math.min(screen.availHeight, screen.height) - titleHeight - miniTitleHeight;
     	$('.mouse_help').hide();
     	$('.touch_help').show();
     }
@@ -665,6 +670,7 @@ function initialize()
 	    // try to scroll to it again in half a second
 	    setTimeout(hideAddressBar, 500);
 	    window.addEventListener("orientationchange", hideAddressBar );
+	    window.onscroll = function() {alert("scroll");};
 	}
     //canvasElement.onmouseup   = mouseup;
     canvasElement.oncontextmenu="return false;";
