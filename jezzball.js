@@ -671,9 +671,9 @@ function initialize()
 	    setTimeout(hideAddressBar, 500);
 	    window.addEventListener("orientationchange", hideAddressBar );
 	    window.onscroll = function(evt) {
-	    	var nVScroll = document.documentElement.scrollTop || document.body.scrollTop;
+	    	var nVScroll = document.documentElement.scrollTop || document.body.scrollTop || pageYOffset;
 	    	if (nVScroll > 0) {
-	    		alert("scroll:" + page);
+	    		alert("scroll:" + nVScroll + ":" + pageYOffset);
 	    	}
 	    };
 	}
