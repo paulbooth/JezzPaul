@@ -654,9 +654,9 @@ function initialize()
 	    canvasElement.ontouchmove = touchmove;
 	    canvasElement.ontouchend = touchend;
 	    hideAddressBar(); //hide address bar
+	    // not sure about this if statement, got from internet
 	    if(document.height < window.outerHeight)
 		{
-			alert("boo " + document.height + " : " + window.outerHeight);
 			document.body.style.height = (window.outerHeight + 50) + 'px';
 		}
 	    // try to scroll to it again in half a second
