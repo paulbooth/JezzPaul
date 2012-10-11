@@ -322,16 +322,17 @@ function drawAll(propuncovered) {
     }
 }
 
+// draws the lose/win text
 function drawText() {
     var font = "sans";
-    var fontsize = 3 * gameWidth / 20;
+    var fontsize =  gameWidth / 8;
     var y = drawingContext.fontAscent(font, fontsize);
     for (var i = 0; i < textColor.length; i++) {
 	textColor[i] = Math.min(
 				Math.max(
 					 Math.round(
 						    textColor[i]
-						    +Math.random()*6-3)
+						    +Math.random()*8-4)
 					 ,0)
 				, 255);
 
@@ -340,7 +341,7 @@ function drawText() {
 	+textColor.toString()+",1)";
     //drawingContext.fillStyle = "rgba(0,0,0,.75)";
     drawingContext.drawTextCenter(font, fontsize, gameWidth/2, y, gameWon?"YOU WIN!!!":"YOU LOSE!!!");
-    drawingContext.drawTextCenter(font, fontsize/2, gameWidth/2, y + fontsize, "Click to continue!");
+    drawingContext.drawTextCenter(font, fontsize/2, gameWidth/2, y + fontsize, ($.browser.mobile? "Tap" : "Click") + " to continue!");
     
     //drawingContext.drawTextCenter(font, fontsize, gameWidth/2, y, gameWon?"YOU WIN!!!":"YOU LOSE!!!");
 }
