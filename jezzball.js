@@ -654,6 +654,10 @@ function initialize()
 	    canvasElement.ontouchmove = touchmove;
 	    canvasElement.ontouchend = touchend;
 	    window.scrollTo(0, 1); //hide address bar
+	    if(document.height < window.outerHeight)
+		{
+			document.body.style.height = (window.outerHeight + 50) + 'px';
+		}
 	    // try to scroll to it again in half a second
 	    setTimeout(function() {
 	    	window.scrollTo(0, 1);
