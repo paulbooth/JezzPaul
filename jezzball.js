@@ -352,11 +352,13 @@ function drawText() {
 }
 
 function drawProp(rect, propuncovered) {
-    drawingContext.fillText("Level:"+gameLevel+
-			    "\nNext Level:"+
-			    ((1-propuncovered)/(1-winProportion)*100).toFixed(1)
-			    +"%", (rect[0] + rect[2]) / 2 - 55,
-			    (rect[1] +rect[3]) / 2);
+	var font = "sans",
+		fontsize = (rect[2] - rect[0]) / 10;
+    drawingContext.drawTextCenter( font, fontsize,
+    			(rect[0] + rect[2]) / 2,
+			    (rect[1] +rect[3]) / 2,
+			    '' + ((1-propuncovered)/(1-winProportion)*100).toFixed(1)
+			    +'%');
 
 }
 
