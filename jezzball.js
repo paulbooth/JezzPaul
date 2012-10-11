@@ -653,15 +653,14 @@ function initialize()
 		canvasElement.ontouchstart = touchstart;
 	    canvasElement.ontouchmove = touchmove;
 	    canvasElement.ontouchend = touchend;
-	    window.scrollTo(0, 1); //hide address bar
+	    hideAddressBar(); //hide address bar
 	    if(document.height < window.outerHeight)
 		{
 			document.body.style.height = (window.outerHeight + 50) + 'px';
 		}
 	    // try to scroll to it again in half a second
-	    setTimeout(function() {
-	    	window.scrollTo(0, 1);
-	    }, 500);
+	    setTimeout(hideAddressBar, 500);
+	    window.addEventListener("orientationchange", hideAddressBar );
 	}
     //canvasElement.onmouseup   = mouseup;
     canvasElement.oncontextmenu="return false;";
@@ -715,4 +714,8 @@ function helpToggle() {
 			window.scrollTo(0,1)
 		}
 	}
+}
+
+function hideAddressBar() {
+	window.scrollTo(0, 1); //hide address bar
 }
