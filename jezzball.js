@@ -649,7 +649,7 @@ function initialize()
     	document.onkeydown = keydown;
     	setTimeout(addFacebookIntegration, 10);
 	} else {
-		document.ontouchstart = document.ontouchmove = document.ontouchend = preventDefault;
+		document.ontouchstart = document.ontouchmove = document.ontouchend = document.body.ontouchstart = preventDefault;
 		canvasElement.ontouchstart = touchstart;
 	    canvasElement.ontouchmove = touchmove;
 	    canvasElement.ontouchend = touchend;
