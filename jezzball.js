@@ -239,7 +239,7 @@ function drawBackground()
 		drawCircle(rect[2], rect[3], 10);
     }
 
-    if (!$.browser.mobile) {
+    if (!useTouch()) {
 
     	//line help
     	drawingContext.beginPath();
@@ -307,7 +307,7 @@ function draw() {
 function drawAll(propuncovered) {
     //clear();
     drawBackground();
-    if (!$.browser.mobile) {
+    if (!useTouch()) {
     	drawMouseCursor();
     }
     if (!$.browser.mozilla) {
@@ -341,7 +341,7 @@ function drawText() {
 	+textColor.toString()+",1)";
     //drawingContext.fillStyle = "rgba(0,0,0,.75)";
     drawingContext.drawTextCenter(font, fontsize, gameWidth/2, y, gameWon?"YOU WIN!!!":"YOU LOSE!!!");
-    drawingContext.drawTextCenter(font, fontsize/2, gameWidth/2, y + fontsize, ($.browser.mobile? "Tap" : "Click") + " to continue!");
+    drawingContext.drawTextCenter(font, fontsize/2, gameWidth/2, y + fontsize, (useTouch()? "Tap" : "Click") + " to continue!");
     
     //drawingContext.drawTextCenter(font, fontsize, gameWidth/2, y, gameWon?"YOU WIN!!!":"YOU LOSE!!!");
 }
@@ -654,7 +654,7 @@ function initialize()
 {
     canvasElement = document.createElement("canvas");
     canvasElement.id = "jezzball_canvas";
-    if ($.browser.mobile) {
+    if (useTouch()) {
     	gameWidth = Math.min(screen.availWidth, screen.width) - 20;
     	$('#minititle_help').css('max-width', '' + gameWidth + 'px');
     	$('#bottom_content').css('max-width', '' + gameWidth + 'px');
@@ -667,7 +667,7 @@ function initialize()
 
     canvasElement.width = gameWidth;
     canvasElement.height = gameHeight;
-    if (!$.browser.mobile) {
+    if (!useTouch()) {
 	    canvasElement.onmousedown = mousedown;
 	    canvasElement.onmousemove = mousemove;
 	    // canvasElement is not focusable
@@ -737,9 +737,11 @@ function addFacebookIntegration() {
  //        <iframe src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FJezzPaul%2F118615994880476&amp;width=300&amp;colorscheme=light&amp;show_faces=true&amp;stream=true&amp;header=true&amp;height=427" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:300px; height:427px;" allowTransparency="true"></iframe>');
 }
 
+
+// toggles showing the help info
 function helpToggle() {
 	$('#help').toggle();
-	if ($.browser.mobile) {
+	if (useTouch()) {
 		if ($('#help').is(":visible")) {
 			window.scrollTo(0, gameHeight + $('#title').height())
 		} else {
@@ -748,6 +750,13 @@ function helpToggle() {
 	}
 }
 
+// hides the address bar on mobile by scrolling to 0,1
 function hideAddressBar() {
 	window.scrollTo(0, 1); //hide address bar
+}
+
+// tells you whether there is touch capabilities
+// detects mobile or iPad
+function useTouch() {
+	return $.browser.mobile || navigator.userAgent.match(/iPad/i) != null 
 }
