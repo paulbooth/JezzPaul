@@ -667,7 +667,6 @@ function initialize()
 
     canvasElement.width = gameWidth;
     canvasElement.height = gameHeight;
-    alert("mobile:" + $.browser.mobile)
     if (!$.browser.mobile) {
 	    canvasElement.onmousedown = mousedown;
 	    canvasElement.onmousemove = mousemove;
