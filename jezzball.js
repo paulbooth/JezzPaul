@@ -313,17 +313,21 @@ function drawAll(propuncovered) {
     if (!$.browser.mozilla) {
 	    drawingContext.setAlpha( gamePaused?.5:1);
 	}
+
+	// draw the proportion for each ball, behind balls
+	for ( ballnum in balls) {
+		drawProp(balls[ballnum].rect, propuncovered);
+	}
+
     for ( ballnum in balls) {
-	var ball = balls[ballnum];
-	ball.draw();
-	drawProp(ball.rect, propuncovered);
+		balls[ballnum].draw();
     }
     for ( lnum in lines) {
-	var line = lines[lnum];
-	line.draw();
+		var line = lines[lnum];
+		line.draw();
     }
     if (gamePaused) {
-	drawText();
+		drawText();
     }
 }
 
@@ -332,16 +336,7 @@ function drawText() {
     var font = "sans";
     var fontsize =  gameWidth / 8;
     var y = drawingContext.fontAscent(font, fontsize);
-    for (var i = 0; i < textColor.length; i++) {
-	textColor[i] = Math.min(
-				Math.max(
-					 Math.round(
-						    textColor[i]
-						    +Math.random()*8-4)
-					 ,0)
-				, 255);
-
-    }
+    updateTextColor();
     drawingContext.strokeStyle = "rgba("
 	+textColor.toString()+",1)";
     //drawingContext.fillStyle = "rgba(0,0,0,.75)";
@@ -351,13 +346,34 @@ function drawText() {
     //drawingContext.drawTextCenter(font, fontsize, gameWidth/2, y, gameWon?"YOU WIN!!!":"YOU LOSE!!!");
 }
 
+
+// updates the text color for win / lose
+function updateTextColor() {
+	for (var i = 0; i < textColor.length; i++) {
+		textColor[i] = Math.min(
+			Math.max(
+				 Math.round(
+					    textColor[i]
+					    +Math.random()*8-4)
+				 ,0)
+			, 255);
+    }
+}
+
+
+// draws the proportion left until the next level
 function drawProp(rect, propuncovered) {
 	var font = "sans",
-		fontsize = (rect[2] - rect[0]) / 10;
+		fontsize = (rect[2] - rect[0]) / 10,
+		prop_till_win = (1-propuncovered)/(1-winProportion);
+	drawingContext.strokeStyle = "rgb(" + 
+		Math.floor((1 - prop_till_win) * 255) + "," +
+		Math.floor(prop_till_win * 255)  +
+		",0)";
     drawingContext.drawTextCenter( font, fontsize,
     			(rect[0] + rect[2]) / 2,
 			    (rect[1] +rect[3]) / 2,
-			    '' + ((1-propuncovered)/(1-winProportion)*100).toFixed(1)
+			    '' + (prop_till_win*100).toFixed(1)
 			    +'%');
 
 }
@@ -675,7 +691,6 @@ function initialize()
 	    window.onscroll = function(evt) {
 	    	var nVScroll = document.documentElement.scrollTop || document.body.scrollTop || pageYOffset;
 	    	if (nVScroll > $('#title').height()) {
-	    		alert("scroll:" + nVScroll + ":" + pageYOffset);
 	    		hideAddressBar();
 	    	}
 	    };
