@@ -17,6 +17,8 @@ var gamePaused = false;
 var switchLines = false;
 var gameWon = true;
 var textColor = [125,125,125];
+var lastUpdateTime = null; // time at last update call
+var avgUpdateTime = 20; // average time in ms to call the update function
 //var shadowOn = 0;
 //no one likes shadows
 
@@ -52,9 +54,9 @@ function Ball(x, y, r, dx, dy) {
     this.dy = dy;
     this.rect = [0+lineWidth, 0+lineWidth,
 		 gameWidth-lineWidth, gameHeight-lineWidth];
-    this.update = function() {
-	this.x += this.dx;
-	this.y += this.dy;
+    this.update = function(timeElapsed) {
+	this.x += this.dx * timeElapsed;
+	this.y += this.dy * timeElapsed;
 	if (( this.x+this.r > this.rect[2] && this.dx > 0)
 	    || (this.x-this.r < this.rect[0] && this.dx < 0)) {
 	    this.dx = -this.dx;
@@ -281,13 +283,16 @@ function drawMouseCursor()
 
 function update()
 {
+	var curUpdateTime = new Date().getTime();
+	var timeElapsed = (curUpdateTime - lastUpdateTime)/avgUpdateTime;
+	lastUpdateTime = curUpdateTime;
     if (gamePaused) {
     	return
     }
 	for ( lnum in lines) {
 	    var line = lines[lnum];
 	    if (line.growing1 || line.growing2) {
-		line.grow();
+		line.grow(timeElapsed);
 	    }
 	}
 	if (get_prop_uncovered() < winProportion) {
@@ -295,7 +300,7 @@ function update()
 	}
 	for ( ballnum in balls) {
 	    var ball = balls[ballnum];
-	    ball.update();
+	    ball.update(timeElapsed);
 	}
 }
 
@@ -403,11 +408,11 @@ function Line(x,y,rect, type)
     this.growing2 = true;
     this.rect = rect;
     //alert(rect);
-    this.grow = function() {
+    this.grow = function(timeElapsed) {
 	if (this.growing1)
-	    this.size1 += lineGrowSpeed;
+	    this.size1 += lineGrowSpeed * timeElapsed;
 	if (this.growing2)
-	    this.size2 += lineGrowSpeed;
+	    this.size2 += lineGrowSpeed * timeElapsed;
 	if  (this.type && (this.x - this.size1 < this.rect[0])) {
 	    this.growing1 = false;
 	    this.size1 = this.x - this.rect[0] - 1;
@@ -710,6 +715,7 @@ function initialize()
     CanvasTextFunctions.enable(drawingContext);
     initializeGame();
     draw();
+    lastUpdateTime = new Date().getTime(); // set up the initial last time
     return setInterval(update, updateTimer);
 }
 
