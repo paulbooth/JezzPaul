@@ -301,11 +301,11 @@ function update()
 	    var ball = balls[ballnum];
 	    ball.update(timeElapsed);
 	}
-	update();
 }
 
 function draw() {
 	window.requestAnimFrame(draw, canvasElement);
+	update()
 	drawAll(get_prop_uncovered());
 }
 
@@ -714,10 +714,10 @@ function initialize()
     
     CanvasTextFunctions.enable(drawingContext);
     initializeGame();
-    draw();
     lastUpdateTime = new Date().getTime(); // set up the initial last time
+    draw();
     //return setInterval(update, updateTimer);
-    setTimeout(update, 0); //async
+    //setTimeout(update, 0); //async
 }
 
 $(document).ready(function(){
