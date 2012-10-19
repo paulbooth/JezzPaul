@@ -18,6 +18,7 @@ var switchLines = false;
 var gameWon = true;
 var textColor = [125,125,125];
 var lastUpdateTime = null; // time at last update call
+var avgUpdateTime = 20; // average time in ms to call the update function
 //var shadowOn = 0;
 //no one likes shadows
 
@@ -283,7 +284,7 @@ function drawMouseCursor()
 function update()
 {
 	var curUpdateTime = new Date().getTime();
-	var timeElapsed = (curUpdateTime - lastUpdateTime)/updateTimer;
+	var timeElapsed = (curUpdateTime - lastUpdateTime)/avgUpdateTime;
 	lastUpdateTime = curUpdateTime;
     if (gamePaused) {
     	return
@@ -301,7 +302,6 @@ function update()
 	    var ball = balls[ballnum];
 	    ball.update(timeElapsed);
 	}
-	update();
 }
 
 function draw() {
@@ -716,8 +716,7 @@ function initialize()
     initializeGame();
     draw();
     lastUpdateTime = new Date().getTime(); // set up the initial last time
-    //return setInterval(update, updateTimer);
-    setTimeout(update, 0); //async
+    return setInterval(update, updateTimer);
 }
 
 $(document).ready(function(){
