@@ -285,6 +285,9 @@ function update()
 	var curUpdateTime = new Date().getTime();
 	var timeElapsed = (curUpdateTime - lastUpdateTime)/updateTimer;
 	lastUpdateTime = curUpdateTime;
+	if (timeElapsed > 5) {
+		timeElapsed = 1;
+	}
     if (gamePaused) {
     	return
     }
