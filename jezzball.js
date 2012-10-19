@@ -236,8 +236,8 @@ function drawBackground()
 		drawingContext.fill();
 		drawingContext.stroke();
 		drawingContext.fillStyle = "#0000FF";
-		drawCircle(rect[0], rect[1], 10);
-		drawCircle(rect[2], rect[3], 10);
+		//drawCircle(rect[0], rect[1], 10);
+		//drawCircle(rect[2], rect[3], 10);
     }
 
     if (!useTouch()) {
