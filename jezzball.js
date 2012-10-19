@@ -694,7 +694,7 @@ function initialize()
 	    window.onscroll = function(evt) {
 	    	var nVScroll = document.documentElement.scrollTop || document.body.scrollTop || pageYOffset;
 	    	$("#title").text(nVScroll);
-	    	if (nVScroll > $('#title').height()) {
+	    	if (nVScroll > $('#title').height() || nVScroll == 0) {
 	    		hideAddressBar();
 	    	}
 	    };
