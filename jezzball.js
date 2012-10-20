@@ -807,9 +807,9 @@ function makeOpenGraphPost()
         { level: 'http://og.jezzpaul.com:3333/' + gameLevel },
         function(response) {
            if (!response || response.error) {
-              alert('Error occured');
+              //alert('Error occured');
            } else {
-              alert('Reach was successful! Action ID: ' + response.id);
+              //alert('Reach was successful! Action ID: ' + response.id);
            }
         });
   }
