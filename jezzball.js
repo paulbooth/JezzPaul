@@ -507,7 +507,6 @@ function winGame() {
     gameLevel += 1;
     lineGrowSpeed *= .9;
     gamePaused = true;
-    makeFacebookPost();
     //backgroundImage.src = winImageLocation;
     //initializeGame();
 
@@ -789,7 +788,7 @@ function makeFacebookPost() {
 	  {
 	   method: 'feed',
 	   name: 'JezzPaul',
-	   caption: 'The best new casual game.',
+	   caption: 'The best new casual game. I got to level ' + gameLevel,
 	   description: (
 	      'Addictively fun, quick game where you trap balls by making ' +
 	      'lines that block out areas and reveal the random picture ' +
