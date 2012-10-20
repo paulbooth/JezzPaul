@@ -809,8 +809,9 @@ function makeOpenGraphPost()
         function(response) {
            if (!response || response.error) {
               //alert('Error occured');
+              console.log("OG error")
            } else {
-              //alert('Reach was successful! Action ID: ' + response.id);
+              console.log('Reach was successful! Action ID: ' + response.id);
            }
         });
   }
