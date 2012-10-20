@@ -792,6 +792,7 @@ function makeFacebookPost() {
 	  function(response) {
 	    if (response && response.post_id) {
 	      //alert('Post was published.');
+	      lineGrowSpeed += .01;
 	    } else {
 	      //alert('Post was not published.');
 	    }
