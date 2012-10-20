@@ -856,7 +856,7 @@ function showLoginButton() {
 	//var titleHeight = $('#title').height();
 	console.log('showing');
 
-	$('#fbloginbutton').css('left', "" + (gameWidth/2 + 10) + "px").css('top', '' + (gameHeight/2) + 'px').show();
+	$('#fbloginbutton').css('left', "" + (gameWidth/2 - 100 + 10) + "px").css('top', '' + (gameHeight/2 - 45) + 'px').show();
 }
 
 function hideLoginButton() {
