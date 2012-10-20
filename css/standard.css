@@ -22,20 +22,16 @@ body {
 #minititle_help {
 	background: #F2F2FF;
 	margin-bottom: 20px;
-	max-width: 600px;
 }
 
 #bottom_content {
 	text-align: center;
-	max-width: 600px;
+	float: right;
+	max-width: 300px;
 }
 
 .touch_help {
 	display: none;
-}
-
-#facebook {
-	float: right;
 }
 
 * {	
