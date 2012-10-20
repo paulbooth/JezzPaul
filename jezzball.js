@@ -507,6 +507,7 @@ function winGame() {
     gameLevel += 1;
     lineGrowSpeed *= .9;
     gamePaused = true;
+    tryFacebookOpenGraphPost();
     //backgroundImage.src = winImageLocation;
     //initializeGame();
 
@@ -635,7 +636,6 @@ function addRandomBall(rect) {
 
 function initializeGame()
 {
-	tryFacebookOpenGraphPost();
     balls = [];
     lines = [];
     var rect = [0,0,gameWidth,gameHeight];
