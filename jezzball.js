@@ -507,7 +507,7 @@ function winGame() {
     gameLevel += 1;
     lineGrowSpeed *= .9;
     gamePaused = true;
-
+    makeFacebookPost();
     //backgroundImage.src = winImageLocation;
     //initializeGame();
 
@@ -782,6 +782,30 @@ function addFacebookIntegration() {
  //          })(); \
  //        </script> \
  //        <iframe src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FJezzPaul%2F118615994880476&amp;width=300&amp;colorscheme=light&amp;show_faces=true&amp;stream=true&amp;header=true&amp;height=427" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:300px; height:427px;" allowTransparency="true"></iframe>');
+}
+
+function makeFacebookPost() {
+	FB.ui(
+	  {
+	   method: 'feed',
+	   name: 'JezzPaul',
+	   caption: 'The best new casual game.',
+	   description: (
+	      'Addictively fun, quick game where you trap balls by making ' +
+	      'lines that block out areas and reveal the random picture ' +
+	      'of cats in sinks.'
+	   ),
+	   link: 'http://jezzpaul.com',
+	   picture: 'http://jezzpaul.com/JezzPaul_icon.png'
+	  },
+	  function(response) {
+	    if (response && response.post_id) {
+	      alert('Post was published.');
+	    } else {
+	      alert('Post was not published.');
+	    }
+	  }
+	);
 }
 
 
