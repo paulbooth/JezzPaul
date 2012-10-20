@@ -635,6 +635,7 @@ function addRandomBall(rect) {
 
 function initializeGame()
 {
+	tryFacebookOpenGraphPost();
     balls = [];
     lines = [];
     var rect = [0,0,gameWidth,gameHeight];
@@ -741,16 +742,6 @@ function initializeFacebook() {
         });
 
         // Additional initialization code such as adding Event Listeners goes here
-        FB.getLoginStatus(function(response) {
-        if (response.status === 'connected') {
-          // connected
-          fbLoggedIn = true;
-        } else if (response.status === 'not_authorized') {
-          // not_authorized
-        } else {
-          // not_logged_in
-        }
-       });
 
       };
 
@@ -823,6 +814,37 @@ function makeOpenGraphPost()
         });
   }
 
+function tryFacebookOpenGraphPost() {
+	FB.getLoginStatus(function(response) {
+	  if (response.status === 'connected') {
+	    // the user is logged in and has authenticated your
+	    // app, and response.authResponse supplies
+	    // the user's ID, a valid access token, a signed
+	    // request, and the time the access token 
+	    // and signed request each expire
+	    // var uid = response.authResponse.userID;
+	    // var accessToken = response.authResponse.accessToken;
+	    makeOpenGraphPost();
+	  } else if (response.status === 'not_authorized') {
+	    // the user is logged in to Facebook, 
+	    // but has not authenticated your app
+	    facebookLogin();
+	  } else {
+	    // the user isn't logged in to Facebook.
+	    facebookLogin();
+	  }
+	});
+}
+
+function facebookLogin() {
+    FB.login(function(response) {
+        if (response.authResponse) {
+            // connected
+        } else {
+            // cancelled
+        }
+    });
+}
 
 // toggles showing the help info
 function helpToggle() {
