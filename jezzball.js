@@ -636,6 +636,7 @@ function addRandomBall(rect) {
 
 function initializeGame()
 {
+	hideLoginButton();
     balls = [];
     lines = [];
     var rect = [0,0,gameWidth,gameHeight];
@@ -826,14 +827,17 @@ function tryFacebookOpenGraphPost() {
 	    // and signed request each expire
 	    // var uid = response.authResponse.userID;
 	    // var accessToken = response.authResponse.accessToken;
+	    console.log("connected user");
 	    makeOpenGraphPost();
 	  } else if (response.status === 'not_authorized') {
 	    // the user is logged in to Facebook, 
 	    // but has not authenticated your app
-	    facebookLogin();
+	    //facebookLogin();
+	    showLoginButton();
 	  } else {
 	    // the user isn't logged in to Facebook.
-	    facebookLogin();
+	    //facebookLogin();
+	    showLoginButton();
 	  }
 	});
 }
@@ -846,6 +850,17 @@ function facebookLogin() {
             // cancelled
         }
     });
+}
+
+function showLoginButton() {
+	var titleHeight = $('#title').height();
+	console.log('showing');
+
+	$('#fbloginbutton').css('left', "" + (gameWidth/2 + 10 - 150) + "px").css('top', '' + (gameHeight/2 + titleHeight) + 'px').show();
+}
+
+function hideLoginButton() {
+	$('#fbloginbutton').hide();
 }
 
 // toggles showing the help info

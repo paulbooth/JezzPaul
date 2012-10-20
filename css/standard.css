@@ -38,6 +38,11 @@ body {
 	font-size: 10px;
 }
 
+#fbloginbutton {
+	position: absolute;
+	left:400px;
+	top:400px;
+}
 * {	
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
