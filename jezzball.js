@@ -863,6 +863,12 @@ function hideLoginButton() {
 	$('#fbloginbutton').hide();
 }
 
+function facebookLoginCallback() {
+	console.log('called back!');
+	hideLoginButton();
+	tryFacebookOpenGraphPost();
+}
+
 // toggles showing the help info
 function helpToggle() {
 	$('#help').toggle();
