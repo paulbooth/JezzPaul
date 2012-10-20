@@ -729,6 +729,7 @@ $(document).ready(function(){
 });
 
 function initializeFacebook() {
+	$('meta[property=og:title]').attr('content', 'Level 3');
 	window.fbAsyncInit = function() {
         // init the FB JS SDK
         FB.init({
