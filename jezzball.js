@@ -813,7 +813,7 @@ function makeOpenGraphPost()
       FB.api(
         '/me/jezzpaul:reach',
         'post',
-        { level: 'http://jezzpaul.com' },
+        { level: 'http://og.jezzpaul.com:3333/' + gameLevel },
         function(response) {
            if (!response || response.error) {
               alert('Error occured');
