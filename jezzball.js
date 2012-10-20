@@ -853,10 +853,10 @@ function facebookLogin() {
 }
 
 function showLoginButton() {
-	var titleHeight = $('#title').height();
+	//var titleHeight = $('#title').height();
 	console.log('showing');
 
-	$('#fbloginbutton').css('left', "" + (gameWidth/2 + 10 - 150) + "px").css('top', '' + (gameHeight/2 + titleHeight) + 'px').show();
+	$('#fbloginbutton').css('left', "" + (gameWidth/2 + 10) + "px").css('top', '' + (gameHeight/2) + 'px').show();
 }
 
 function hideLoginButton() {
