@@ -799,13 +799,28 @@ function makeFacebookPost() {
 	  },
 	  function(response) {
 	    if (response && response.post_id) {
-	      alert('Post was published.');
+	      //alert('Post was published.');
 	    } else {
-	      alert('Post was not published.');
+	      //alert('Post was not published.');
 	    }
 	  }
 	);
 }
+
+function makeOpenGraphPost()
+  {
+      FB.api(
+        '/me/jezzpaul:reach',
+        'post',
+        { level: 'http://jezzpaul.com' },
+        function(response) {
+           if (!response || response.error) {
+              alert('Error occured');
+           } else {
+              alert('Reach was successful! Action ID: ' + response.id);
+           }
+        });
+  }
 
 
 // toggles showing the help info
