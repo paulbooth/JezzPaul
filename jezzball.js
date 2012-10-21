@@ -671,7 +671,7 @@ function initialize()
     	$('#bottom_content').css('max-width', '' + gameWidth + 'px');
     	var titleHeight = $('#title').height(),
     	miniTitleHeight = $('#minititle').height();
-    	gameHeight = Math.min(screen.availHeight, screen.height) - titleHeight - miniTitleHeight - 50;
+    	gameHeight = Math.min(screen.availHeight, screen.height) - titleHeight - miniTitleHeight - 80;
     	$('.mouse_help').hide();
     	$('.touch_help').show();
     }
@@ -700,7 +700,7 @@ function initialize()
 	    window.addEventListener("orientationchange", hideAddressBar );
 	    window.onscroll = function(evt) {
 	    	var nVScroll = document.documentElement.scrollTop || document.body.scrollTop || pageYOffset;
-	    	$("#title").text(fbLoggedIn);
+	    	//$("#title").text(fbLoggedIn);
 	    	if (nVScroll > $('#title').height() || nVScroll == 0) {
 	    		hideAddressBar();
 	    	}
