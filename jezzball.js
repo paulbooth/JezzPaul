@@ -884,7 +884,7 @@ function helpToggle() {
 			//$("#help").animate({ scrollTop: $('#canvas').height()}, 1000);
 			$('#bottom_content').css('max-width', '' + gameWidth + 'px')
     		.css('position', 'absolute')
-    		.css('top', '' + (gameHeight/2 + $('#title').height() - $('#bottom_content').height()/2) + 'px')
+    		.css('top', '' + ($('#jezzball_canvas').position().top + gameHeight) + 'px')
     		.css('left', '' + (gameWidth/2 - $('#bottom_content').width()/2) + 'px');
 		} else {
 			//window.scrollTo(0,1)
