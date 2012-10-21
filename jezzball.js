@@ -666,7 +666,7 @@ function initialize()
     canvasElement = document.createElement("canvas");
     canvasElement.id = "jezzball_canvas";
     if (useTouch()) {
-    	gameWidth = Math.min(screen.availWidth, screen.width) - 20;
+    	gameWidth = Math.min(screen.availWidth, screen.width);
     	var titleHeight = $('#title').height(),
     	miniTitleHeight = $('#minititle').height();
     	gameHeight = Math.min(screen.availHeight, screen.height) - titleHeight - miniTitleHeight - 80;
@@ -684,7 +684,7 @@ function initialize()
     	document.onkeydown = keydown;
     	//setTimeout(addFacebookIntegration, 10);
 	} else {
-		document.ontouchstart = document.ontouchmove = document.ontouchend = document.body.ontouchstart = preventDefault;
+		//document.ontouchstart = document.ontouchmove = document.ontouchend = document.body.ontouchstart = preventDefault;
 		canvasElement.ontouchstart = touchstart;
 	    canvasElement.ontouchmove = touchmove;
 	    canvasElement.ontouchend = touchend;
