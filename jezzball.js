@@ -667,11 +667,10 @@ function initialize()
     canvasElement.id = "jezzball_canvas";
     if (useTouch()) {
     	gameWidth = Math.min(screen.availWidth, screen.width) - 20;
-    	$('#minititle_help').css('max-width', '' + gameWidth + 'px');
-    	$('#bottom_content').css('max-width', '' + gameWidth + 'px');
     	var titleHeight = $('#title').height(),
     	miniTitleHeight = $('#minititle').height();
     	gameHeight = Math.min(screen.availHeight, screen.height) - titleHeight - miniTitleHeight - 80;
+    	$('#minititle_help').css('max-width', '' + gameWidth + 'px');
     	$('.mouse_help').hide();
     	$('.touch_help').show();
     }
@@ -689,7 +688,10 @@ function initialize()
 		canvasElement.ontouchstart = touchstart;
 	    canvasElement.ontouchmove = touchmove;
 	    canvasElement.ontouchend = touchend;
+	    $('#fbsharebtn').height($('#title').height())
+	    $('#fbsharebtn').css('padding-top', '5px')
 	    hideAddressBar(); //hide address bar
+	    helpToggle();
 	    // not sure about this if statement, got from internet
 	    if(document.height < window.outerHeight)
 		{
@@ -701,7 +703,10 @@ function initialize()
 	    window.onscroll = function(evt) {
 	    	var nVScroll = document.documentElement.scrollTop || document.body.scrollTop || pageYOffset;
 	    	//$("#title").text(fbLoggedIn);
-	    	if (nVScroll > $('#title').height() || nVScroll == 0) {
+	    	console.log(nVScroll);
+	    	console.log(gameHeight + $('#title').height());
+	    	if ( (nVScroll != gameHeight + $('#title').height() ) &&
+	    		(nVScroll != 1)) {
 	    		hideAddressBar();
 	    	}
 	    };
@@ -874,9 +879,19 @@ function helpToggle() {
 	$('#help').toggle();
 	if (useTouch()) {
 		if ($('#help').is(":visible")) {
-			window.scrollTo(0, gameHeight + $('#title').height())
+			//console.log("scrolling to:" + (gameHeight + $('#title').height()) )
+			//window.scrollTo(0, gameHeight + $('#title').height())
+			//$("#help").animate({ scrollTop: $('#canvas').height()}, 1000);
+			$('#bottom_content').css('max-width', '' + gameWidth + 'px')
+    		.css('position', 'absolute')
+    		.css('top', '' + (gameHeight/2 + $('#title').height() - $('#bottom_content').height()/2) + 'px')
+    		.css('left', '' + (gameWidth/2 - $('#bottom_content').width()/2) + 'px');
 		} else {
-			window.scrollTo(0,1)
+			//window.scrollTo(0,1)
+			$('#bottom_content').css('max-width', '' + gameWidth + 'px')
+    		.css('position', 'absolute')
+    		.css('top', '' + (gameHeight + $('#title').height()) + 'px')
+    		.css('left', '' + (gameWidth/2 - $('#bottom_content').width()/2) + 'px');
 		}
 	}
 }

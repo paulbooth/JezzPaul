@@ -6,6 +6,20 @@
 	display: inline;
 }
 
+#titlediv {
+	overflow: auto;
+}
+
+#title {
+	float: left;
+	margin: 0px;
+}
+
+#fbsharebuton {
+	float: left;
+	margin: 0px;
+}
+
 #canvas {
 	margin: 0px;
 }
@@ -16,7 +30,7 @@
 }
 
 body {
-	margin: 10px;
+	margin: 0px;
 }
 
 #minititle_help {
