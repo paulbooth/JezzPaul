@@ -94,7 +94,6 @@ body {
 	margin: 10px auto;
 	display: block;
 	display: none;
-	width: 100%;
 }
 
 #fbloginconnect {
@@ -103,9 +102,11 @@ body {
 }
 
 #fbloginconnectsuccess {
-	margin: 10px auto;
+	margin-right: auto;
+	margin-left: auto;
 	display: block;
 	display: none;
+	width: 100%;
 }
 
 #continuegamebtn {
