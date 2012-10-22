@@ -670,7 +670,7 @@ function initialize()
     canvasElement.id = "jezzball_canvas";
     if (useTouch()) {
     	gameWidth = Math.min(screen.availWidth, screen.width);
-    	var titleHeight = $('#title').height(),
+    	var titleHeight = $('#titlediv').height(),
     	miniTitleHeight = $('#minititle').height();
     	gameHeight = Math.min(screen.availHeight, screen.height) - titleHeight - miniTitleHeight - 80;
     	$('#minititle_help').css('max-width', '' + gameWidth + 'px');
@@ -893,7 +893,7 @@ function helpToggle() {
 			//window.scrollTo(0,1)
 			$('#bottom_content').css('max-width', '' + gameWidth + 'px')
     		.css('position', 'absolute')
-    		.css('top', '' + (gameHeight + $('#title').height()) + 'px')
+    		.css('top', '' + (gameHeight + $('#titlediv').height()) + 'px')
     		.css('left', '' + (gameWidth/2 - $('#bottom_content').width()/2) + 'px');
 		}
 	}
