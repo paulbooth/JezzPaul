@@ -672,7 +672,7 @@ function initialize()
     	gameWidth = Math.min(screen.availWidth, screen.width);
     	var titleHeight = $('#titlediv').height(),
     	miniTitleHeight = $('#minititle').height();
-    	gameHeight = Math.min(screen.availHeight, screen.height) - titleHeight - miniTitleHeight - 80;
+    	gameHeight = Math.min(screen.availHeight, screen.height) - titleHeight - miniTitleHeight;
     	$('#minititle_help').css('max-width', '' + gameWidth + 'px');
     	$('.mouse_help').hide();
     	$('.touch_help').show();
