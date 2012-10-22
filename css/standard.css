@@ -72,7 +72,7 @@ body {
 	top: 100px;
 	max-width: 300px;
 	overflow: hidden;
-	/*display: none;*/
+	display: none;
 }
 
 #fbconnecttext {
