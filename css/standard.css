@@ -94,6 +94,7 @@ body {
 	margin: 10px auto;
 	display: block;
 	display: none;
+	width: 100%;
 }
 
 #fbloginconnect {
