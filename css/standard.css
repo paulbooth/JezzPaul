@@ -80,6 +80,9 @@ body {
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	padding: 3px;
+	text-align: center;
+	margin-right: auto;
+	margin-left: auto;
 }
 
 #fbsharebtnconnect {
