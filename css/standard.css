@@ -8,6 +8,7 @@
 
 #titlediv {
 	overflow: auto;
+	max-height: 40px;
 }
 
 #title {

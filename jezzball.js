@@ -698,18 +698,18 @@ function initialize()
 			document.body.style.height = (window.outerHeight + 50) + 'px';
 		}
 	    // try to scroll to it again in half a second
-	    setTimeout(hideAddressBar, 500);
+	    setTimeout(hideAddressBar, 1000);
 	    window.addEventListener("orientationchange", hideAddressBar );
-	    window.onscroll = function(evt) {
-	    	var nVScroll = document.documentElement.scrollTop || document.body.scrollTop || pageYOffset;
-	    	//$("#title").text(fbLoggedIn);
-	    	console.log(nVScroll);
-	    	console.log(gameHeight + $('#title').height());
-	    	if ( (nVScroll != gameHeight + $('#title').height() ) &&
-	    		(nVScroll != 1)) {
-	    		hideAddressBar();
-	    	}
-	    };
+	    // window.onscroll = function(evt) {
+	    // 	var nVScroll = document.documentElement.scrollTop || document.body.scrollTop || pageYOffset;
+	    // 	//$("#title").text(fbLoggedIn);
+	    // 	console.log(nVScroll);
+	    // 	console.log(gameHeight + $('#title').height());
+	    // 	if ( (nVScroll != gameHeight + $('#title').height() ) &&
+	    // 		(nVScroll != 1)) {
+	    // 		hideAddressBar();
+	    // 	}
+	    // };
 	}
     //canvasElement.onmouseup   = mouseup;
     canvasElement.oncontextmenu="return false;";
