@@ -694,7 +694,7 @@ function initialize()
 	    $('#fbsharebtn').height($('#title').height())
 	    $('#fbsharebtn').css('padding-top', '5px')
 	    hideAddressBar(); //hide address bar
-	    helpToggle();
+	    //helpToggle();
 	    // not sure about this if statement, got from internet
 	    if(document.height < window.outerHeight)
 		{
