@@ -510,9 +510,23 @@ function winGame() {
     gameLevel += 1;
     lineGrowSpeed *= .9;
     gamePaused = true;
-    tryFacebookOpenGraphPost();
+    //tryFacebookOpenGraphPost();
     //backgroundImage.src = winImageLocation;
     //initializeGame();
+    FB.getLoginStatus(function(response) {
+	  if (response.status === 'connected') {
+	    $('#fbloginconnect').hide();
+	    makeOpenGraphPost();
+	  } else {
+	    // the user isn't logged in to Facebook.
+	    //facebookLogin();
+	    $('#fbloginconnect').show();
+	  }
+	  console.log('okay');
+	  $('#fbconnect').css('left', "" + (canvasMinX + gameWidth/2 - $('#fbconnect').width()/2) + "px")
+    	.css('top', '' + (canvasMinY + gameHeight/2 - $('#fbconnect').height()/2) + 'px')
+    	.show();
+	});
 
 }
 
@@ -527,7 +541,6 @@ function loseGame() {
 function mousedown(evt)
 {
     if (gamePaused) {
-		gamePaused = false;
 		initializeGame();
     } else {
 		var x = evt.pageX - canvasMinX;
@@ -590,7 +603,6 @@ function touchend(evt)
 {
 	evt.preventDefault();
 	if (gamePaused) {
-		gamePaused = false;
 		initializeGame();
     } else {
 		if (lastTouchY && lastTouchX && touchX && touchY) {
@@ -616,7 +628,6 @@ function keydown(evt)
 		//$('#jezzball_canvas').css('cursor', switchLines? 'e-resize' : 'n-resize')
 		evt.preventDefault();
 		if (gamePaused) {
-			gamePaused = false;
 			initializeGame();
 		}
 	}
@@ -639,7 +650,9 @@ function addRandomBall(rect) {
 
 function initializeGame()
 {
-	hideLoginButton();
+	gamePaused = false;
+	$('#fbconnect').hide();
+	// hideLoginButton();
     balls = [];
     lines = [];
     var rect = [0,0,gameWidth,gameHeight];
@@ -801,7 +814,7 @@ function makeFacebookPost() {
 	  function(response) {
 	    if (response && response.post_id) {
 	      //alert('Post was published.');
-	      lineGrowSpeed += .01;
+	      lineGrowSpeed += .1;
 	    } else {
 	      //alert('Post was not published.');
 	    }
@@ -841,11 +854,11 @@ function tryFacebookOpenGraphPost() {
 	    // the user is logged in to Facebook, 
 	    // but has not authenticated your app
 	    //facebookLogin();
-	    showLoginButton();
+	    // showLoginButton();
 	  } else {
 	    // the user isn't logged in to Facebook.
 	    //facebookLogin();
-	    showLoginButton();
+	    // showLoginButton();
 	  }
 	});
 }
@@ -854,6 +867,7 @@ function facebookLogin() {
     FB.login(function(response) {
         if (response.authResponse) {
             // connected
+            lineGrowSpeed += .01;
         } else {
             // cancelled
         }
@@ -875,6 +889,10 @@ function facebookLoginCallback() {
 	console.log('called back!');
 	hideLoginButton();
 	tryFacebookOpenGraphPost();
+}
+
+function continueGame() {
+	initializeGame();
 }
 
 // toggles showing the help info

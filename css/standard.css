@@ -60,6 +60,35 @@ body {
 	left:400px;
 	top:400px;
 }
+
+#fbconnect {
+	background: rgba(59, 89, 182, .5);
+	border-radius: 15px;
+	-moz-border-radius: 15px;
+	padding: 10px;
+	position: absolute;
+	left: 150px;
+	top: 100px;
+	max-width: 300px;
+	overflow: auto;
+	display: none;
+}
+
+#fbsharebtnconnect {
+	margin: 10px auto;
+	display: block;
+}
+
+#fbloginconnect {
+	margin: 10px auto;
+	display: block;
+}
+
+#continuegamebtn {
+	display: block;
+	margin: 10px auto;
+}
+
 * {	
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
