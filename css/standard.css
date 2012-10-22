@@ -17,13 +17,14 @@
 	margin: 0px;
 }
 
-#fbsharebuton {
+#fbsharebtn {
 	float: left;
 	margin: 0px;
 }
 
 #canvas {
 	margin: 0px;
+	display: inline-block;
 }
 
 #jezzball_canvas {
@@ -70,7 +71,7 @@ body {
 	left: 150px;
 	top: 100px;
 	max-width: 300px;
-	overflow: auto;
+	overflow: hidden;
 	display: none;
 }
 

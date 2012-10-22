@@ -522,7 +522,6 @@ function winGame() {
 	    //facebookLogin();
 	    $('#fbloginconnect').show();
 	  }
-	  console.log('okay');
 	  $('#fbconnect').css('left', "" + (canvasMinX + gameWidth/2 - $('#fbconnect').width()/2) + "px")
     	.css('top', '' + (canvasMinY + gameHeight/2 - $('#fbconnect').height()/2) + 'px')
     	.show();
@@ -698,6 +697,8 @@ function initialize()
 	    canvasElement.onmousemove = mousemove;
 	    // canvasElement is not focusable
     	document.onkeydown = keydown;
+    	$('#canvas').css('margin','10px');
+    	$('#fbsharebtn').css('margin-left', '10px');
     	//setTimeout(addFacebookIntegration, 10);
 	} else {
 		//document.ontouchstart = document.ontouchmove = document.ontouchend = document.body.ontouchstart = preventDefault;
