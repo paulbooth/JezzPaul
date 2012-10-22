@@ -880,7 +880,9 @@ function facebookLogin() {
             lineGrowSpeed += 1.5;
             $('#fbloginconnect').hide();
 		    $('#fbloginconnectsuccess').show();
-		    setTimeout($('#fbloginconnectsuccess').hide, 3000);
+		    setTimeout(function() {
+		    	$('#fbloginconnectsuccess').hide();
+		    }, 3000);
         } else {
             // cancelled
         }
