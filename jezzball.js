@@ -893,7 +893,7 @@ function helpToggle() {
 			//window.scrollTo(0,1)
 			$('#bottom_content').css('max-width', '' + gameWidth + 'px')
     		.css('position', 'absolute')
-    		.css('top', '' + (gameHeight + $('#titlediv').height()) + 'px')
+    		.css('top', '' + (gameHeight/2 - $('#bottom_content').height()/2 + $('#titlediv').height()) + 'px')
     		.css('left', '' + (gameWidth/2 - $('#bottom_content').width()/2) + 'px');
 		}
 	}
