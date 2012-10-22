@@ -865,9 +865,6 @@ function tryFacebookOpenGraphPost() {
 	    // but has not authenticated your app
 	    //facebookLogin();
 	    // showLoginButton();
-	    $('#fbloginconnect').hide();
-	    $('#fbloginconnectsuccess').show();
-	    setTimeout($('#fbloginconnectsuccess').hide, 3000);
 	  } else {
 	    // the user isn't logged in to Facebook.
 	    //facebookLogin();
@@ -880,8 +877,10 @@ function facebookLogin() {
     FB.login(function(response) {
         if (response.authResponse) {
             // connected
-            lineGrowSpeed += 1;
-
+            lineGrowSpeed += 1.5;
+            $('#fbloginconnect').hide();
+		    $('#fbloginconnectsuccess').show();
+		    setTimeout($('#fbloginconnectsuccess').hide, 3000);
         } else {
             // cancelled
         }
