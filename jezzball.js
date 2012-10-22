@@ -799,7 +799,10 @@ function addFacebookIntegration() {
  //        <iframe src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FJezzPaul%2F118615994880476&amp;width=300&amp;colorscheme=light&amp;show_faces=true&amp;stream=true&amp;header=true&amp;height=427" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:300px; height:427px;" allowTransparency="true"></iframe>');
 }
 
-function makeFacebookPost() {
+function makeFacebookPost(image_url) {
+	if (!image_url) {
+		image_url = 'http://catsinsinks.com/images/cats/rotator.php?'+Math.random();
+	}
 	FB.ui(
 	  {
 	   method: 'feed',
@@ -811,12 +814,13 @@ function makeFacebookPost() {
 	      'of cats in sinks.'
 	   ),
 	   link: 'http://jezzpaul.com',
-	   picture: 'http://jezzpaul.com/JezzPaul_icon.png'
+	   picture: image_url
 	  },
 	  function(response) {
 	    if (response && response.post_id) {
 	      //alert('Post was published.');
 	      lineGrowSpeed += .1;
+	      $('#fbsharebtnconnect').addClass('disabled');
 	    } else {
 	      //alert('Post was not published.');
 	    }
