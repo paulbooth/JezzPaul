@@ -513,6 +513,7 @@ function winGame() {
     //tryFacebookOpenGraphPost();
     //backgroundImage.src = winImageLocation;
     //initializeGame();
+    $('continuegamebtn').text('Continue to level ' + gameLevel);
     FB.getLoginStatus(function(response) {
 	  if (response.status === 'connected') {
 	    $('#fbloginconnect').hide();
