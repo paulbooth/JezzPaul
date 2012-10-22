@@ -514,6 +514,8 @@ function winGame() {
     //backgroundImage.src = winImageLocation;
     //initializeGame();
     $('continuegamebtn').text('Continue to level ' + gameLevel);
+    $('#fbsharebtnconnect').show();
+	$('#fbsharebtnconnectsuccess').hide();
     FB.getLoginStatus(function(response) {
 	  if (response.status === 'connected') {
 	    $('#fbloginconnect').hide();
@@ -807,7 +809,7 @@ function makeFacebookPost(image_url) {
 	  {
 	   method: 'feed',
 	   name: 'JezzPaul',
-	   caption: 'The best new casual game. I got to level ' + gameLevel + "!",
+	   caption: 'The best new casual game. I just reached level ' + gameLevel + "!",
 	   description: (
 	      'Addictively fun, quick game where you trap balls by making ' +
 	      'lines that block out areas and reveal the random picture ' +
@@ -820,12 +822,8 @@ function makeFacebookPost(image_url) {
 	    if (response && response.post_id) {
 	      //alert('Post was published.');
 	      lineGrowSpeed += .1;
-	      $('#fbsharebtnconnect')
-	      .addClass('disabled')
-	      .removeClass('btn-primary')
-	      .addClass('btn-success')
-	      .text('Bam! Your lines are faster!')
-	      .attr('onclick', 'continueGame()');
+	      $('#fbsharebtnconnect').hide();
+	      $('#fbsharebtnconnectsuccess').show();
 	    } else {
 	      //alert('Post was not published.');
 	    }

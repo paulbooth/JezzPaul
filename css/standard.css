@@ -80,6 +80,12 @@ body {
 	display: block;
 }
 
+#fbsharebtnconnectsuccess {
+	margin: 10px auto;
+	display: block;
+	display: none;
+}
+
 #fbloginconnect {
 	margin: 10px auto;
 	display: block;
