@@ -101,6 +101,12 @@ body {
 	display: block;
 }
 
+#fbloginconnectsuccess {
+	margin: 10px auto;
+	display: block;
+	display: none;
+}
+
 #continuegamebtn {
 	display: block;
 	margin: 10px auto;

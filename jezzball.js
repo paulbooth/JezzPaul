@@ -822,7 +822,7 @@ function makeFacebookPost(image_url) {
 	  function(response) {
 	    if (response && response.post_id) {
 	      //alert('Post was published.');
-	      lineGrowSpeed += .1;
+	      lineGrowSpeed += 1;
 	      $('#fbsharebtnconnect').hide();
 	      $('#fbsharebtnconnectsuccess').show();
 	    } else {
@@ -865,6 +865,9 @@ function tryFacebookOpenGraphPost() {
 	    // but has not authenticated your app
 	    //facebookLogin();
 	    // showLoginButton();
+	    $('#fbloginconnect').hide();
+	    $('#fbloginconnectsuccess').show();
+	    setTimeout($('#fbloginconnectsuccess').hide, 3000);
 	  } else {
 	    // the user isn't logged in to Facebook.
 	    //facebookLogin();
@@ -877,7 +880,8 @@ function facebookLogin() {
     FB.login(function(response) {
         if (response.authResponse) {
             // connected
-            lineGrowSpeed += .01;
+            lineGrowSpeed += 1;
+
         } else {
             // cancelled
         }
