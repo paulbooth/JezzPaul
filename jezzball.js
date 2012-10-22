@@ -516,7 +516,6 @@ function winGame() {
     $('continuegamebtn').text('Continue to level ' + gameLevel);
     $('#fbsharebtnconnect').show();
 	$('#fbsharebtnconnectsuccess').hide();
-	$('#title').text("YOU=WINNER");
     FB.getLoginStatus(function(response) {
 	  if (response.status === 'connected') {
 	    $('#fbloginconnect').hide();
@@ -526,7 +525,7 @@ function winGame() {
 	    //facebookLogin();
 	    $('#fbloginconnect').show();
 	  }
-	  $('#title').text('' + (canvasMinX + gameWidth/2 - $('#fbconnect').width()/2) + ', ' + (canvasMinY + gameHeight/2 - $('#fbconnect').height()/2))
+	  // $('#title').text('' + (canvasMinX + gameWidth/2 - $('#fbconnect').width()/2) + ', ' + (canvasMinY + gameHeight/2 - $('#fbconnect').height()/2))
 	  $('#fbconnect').css('left', "" + (canvasMinX + gameWidth/2 - $('#fbconnect').width()/2) + "px")
     	.css('top', '' + (canvasMinY + gameHeight/2 - $('#fbconnect').height()/2) + 'px')
     	.show();
