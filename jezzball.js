@@ -281,8 +281,11 @@ function drawMouseCursor()
 	drawingContext.stroke();
 }
 
+var updateCounter = 0;
 function update()
 {
+	updateCounter++;
+	$('#title').text(updateCounter);
 	var curUpdateTime = new Date().getTime();
 	var timeElapsed = (curUpdateTime - lastUpdateTime)/updateTimer;
 	lastUpdateTime = curUpdateTime;
