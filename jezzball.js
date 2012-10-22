@@ -811,7 +811,7 @@ function makeFacebookPost(image_url) {
 	   description: (
 	      'Addictively fun, quick game where you trap balls by making ' +
 	      'lines that block out areas and reveal the random picture ' +
-	      'of cats in sinks.'
+	      'of cats in sinks. All your friends play it.'
 	   ),
 	   link: 'http://jezzpaul.com',
 	   picture: image_url
@@ -820,7 +820,12 @@ function makeFacebookPost(image_url) {
 	    if (response && response.post_id) {
 	      //alert('Post was published.');
 	      lineGrowSpeed += .1;
-	      $('#fbsharebtnconnect').addClass('disabled');
+	      $('#fbsharebtnconnect')
+	      .addClass('disabled')
+	      .removeClass('btn-primary')
+	      .addClass('btn-success')
+	      .text('Bam! Your lines are faster!')
+	      .attr('onclick', 'continueGame()');
 	    } else {
 	      //alert('Post was not published.');
 	    }
