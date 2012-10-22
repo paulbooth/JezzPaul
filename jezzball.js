@@ -281,11 +281,11 @@ function drawMouseCursor()
 	drawingContext.stroke();
 }
 
-var updateCounter = 0;
+// var updateCounter = 0;
 function update()
 {
-	updateCounter++;
-	$('#title').text(updateCounter);
+	// updateCounter++;
+	// $('#title').text(updateCounter);
 	var curUpdateTime = new Date().getTime();
 	var timeElapsed = (curUpdateTime - lastUpdateTime)/updateTimer;
 	lastUpdateTime = curUpdateTime;
@@ -696,10 +696,10 @@ function initialize()
 	    hideAddressBar(); //hide address bar
 	    //helpToggle();
 	    // not sure about this if statement, got from internet
-	    if(document.height < window.outerHeight)
-		{
-			document.body.style.height = (window.outerHeight + 50) + 'px';
-		}
+	 //    if(document.height < window.outerHeight)
+		// {
+		// 	document.body.style.height = (window.outerHeight + 50) + 'px';
+		// }
 	    // try to scroll to it again in half a second
 	    setTimeout(hideAddressBar, 1000);
 	    window.addEventListener("orientationchange", hideAddressBar );
