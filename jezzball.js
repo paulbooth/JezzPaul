@@ -19,6 +19,9 @@ var gameWon = true;
 var textColor = [125,125,125];
 var lastUpdateTime = null; // time at last update call
 var fbLoggedIn = false;
+var showHelpText = false;
+var initHelpTimer = null;
+var helpTextTime = 5000;
 //var shadowOn = 0;
 //no one likes shadows
 
@@ -225,20 +228,23 @@ function drawBackground()
     }
 
 
-
+    var drawnRects = [];
     for (ballnum in balls){
 		drawingContext.beginPath();
 		var rect = balls[ballnum].rect;
-		drawingContext.rect(rect[0],rect[1],rect[2]-rect[0],rect[3]-rect[1]);
-		drawingContext.closePath();
-		drawingContext.fillStyle = "#FFFFFF";
-		drawingContext.strokeStyle = "#AA0000";
-		drawingContext.lineWidth = lineWidth;
-		drawingContext.fill();
-		drawingContext.stroke();
-		drawingContext.fillStyle = "#0000FF";
-		//drawCircle(rect[0], rect[1], 10);
-		//drawCircle(rect[2], rect[3], 10);
+		if ((drawnRects.indexOf(rect) == -1)) {
+			drawnRects.push(rect);
+			drawingContext.rect(rect[0],rect[1],rect[2]-rect[0],rect[3]-rect[1]);
+			drawingContext.closePath();
+			drawingContext.fillStyle = "#FFFFFF";
+			drawingContext.strokeStyle = "#AA0000";
+			drawingContext.lineWidth = lineWidth;
+			drawingContext.fill();
+			drawingContext.stroke();
+			drawingContext.fillStyle = "#0000FF";
+			//drawCircle(rect[0], rect[1], 10);
+			//drawCircle(rect[2], rect[3], 10);
+		}
     }
 
     if (!useTouch()) {
@@ -281,6 +287,21 @@ function drawMouseCursor()
 	drawingContext.stroke();
 }
 
+function drawHelpText()
+{
+    var font = "sans";
+    var fontsize =  gameWidth / 8;
+    var y = drawingContext.fontAscent(font, fontsize);
+    updateTextColor();
+    updateTextColor();
+    drawingContext.strokeStyle = "rgba("
+	+textColor.toString()+",1)";
+    //drawingContext.fillStyle = "rgba(0,0,0,.75)";
+    drawingContext.drawTextCenter(font, fontsize, 
+    	gameWidth/2, y, 
+    	useTouch()?"Swipe!":"Click!");
+}
+
 // var updateCounter = 0;
 function update()
 {
@@ -318,6 +339,9 @@ function draw() {
 function drawAll(propuncovered) {
     //clear();
     drawBackground();
+    if (showHelpText) {
+    	drawHelpText();
+    }
     if (!useTouch()) {
     	drawMouseCursor();
     }
@@ -544,6 +568,11 @@ function loseGame() {
 
 function mousedown(evt)
 {
+	if (initHelpTimer) {
+		showHelpText = false;
+		clearTimeout(initHelpTimer);
+		initHelpTimer = null;
+	}
     if (gamePaused) {
 		initializeGame();
     } else {
@@ -581,6 +610,11 @@ function mousemove(evt)
 function touchstart(evt)
 {
 	evt.preventDefault();
+	if (initHelpTimer) {
+		showHelpText = false;
+		clearTimeout(initHelpTimer);
+		initHelpTimer = null;
+	}
 	if (evt.targetTouches.length) {
 		var touch = evt.targetTouches[0];
 		lastTouchX = touch.pageX;
@@ -749,6 +783,9 @@ function initialize()
     CanvasTextFunctions.enable(drawingContext);
     initializeGame();
     draw();
+    initHelpTimer = setTimeout(function() {
+    	showHelpText = true;
+    }, helpTextTime);
     lastUpdateTime = new Date().getTime(); // set up the initial last time
     return setInterval(update, updateTimer);
 }
