@@ -516,6 +516,7 @@ function winGame() {
     $('continuegamebtn').text('Continue to level ' + gameLevel);
     $('#fbsharebtnconnect').show();
 	$('#fbsharebtnconnectsuccess').hide();
+	$('#fbconnecttext').text(getRandomTip());
     FB.getLoginStatus(function(response) {
 	  if (response.status === 'connected') {
 	    $('#fbloginconnect').hide();
@@ -908,6 +909,20 @@ function facebookLoginCallback() {
 
 function continueGame() {
 	initializeGame();
+}
+
+function getRandomTip() {		
+	var tips = ['Share on Facebook to get faster lines!',
+		'It\'s always a random picture, but always of a cat. In a sink.',
+		'If you need help, there is a help button!',
+		'If you have feedback, please tweet at @jezzpaul',
+		'We have a Facebook Page!',
+		'Have you tried the mobile version?',
+		'Who could you introduce to JezzPaul?',
+		'Wow! You got to level ' + gameLevel + '? You should tell your friends!',
+		'The balls keep bouncing. Back and forth. Forever.',
+		'Try spacebar to change line orientation.'];
+	return tips[Math.floor(Math.random() * tips.length)];
 }
 
 // toggles showing the help info
