@@ -543,7 +543,7 @@ function winGame() {
 	$('#fbconnecttext').text(getRandomTip());
     FB.getLoginStatus(function(response) {
 	  if (response.status === 'connected') {
-	    $('#fbloginconnect').hide();
+	    $('#fbloginconnect').hide(); // don't need to prompt for a login if already logged in
 	    makeOpenGraphPost();
 	  } else {
 	    // the user isn't logged in to Facebook.
@@ -553,7 +553,7 @@ function winGame() {
 	  // $('#title').text('' + (canvasMinX + gameWidth/2 - $('#fbconnect').width()/2) + ', ' + (canvasMinY + gameHeight/2 - $('#fbconnect').height()/2))
 	  $('#fbconnect').css('left', "" + (canvasMinX + gameWidth/2 - $('#fbconnect').width()/2) + "px")
     	.css('top', '' + (canvasMinY + gameHeight/2 - $('#fbconnect').height()/2) + 'px')
-    	.show();
+    	.fadeIn();
 	});
 
 }
@@ -689,7 +689,7 @@ function addRandomBall(rect) {
 function initializeGame()
 {
 	gamePaused = false;
-	$('#fbconnect').hide();
+	$('#fbconnect').fadeOut();
 	// hideLoginButton();
     balls = [];
     lines = [];
