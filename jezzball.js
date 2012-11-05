@@ -480,8 +480,7 @@ function drawProp(rect, propuncovered) {
   drawingContext.drawTextCenter( font, fontsize,
     (rect[0] + rect[2]) / 2,
     (rect[1] +rect[3]) / 2,
-    '' + (prop_till_win*100).toFixed(1)
-    +'%');
+    '' + (prop_till_win*100).toFixed(1));
 }
 
 function get_prop_uncovered() {
