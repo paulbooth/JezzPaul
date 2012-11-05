@@ -286,18 +286,17 @@ function drawBackground()
   if (!useTouch()) {
     //line help
     drawingContext.beginPath();
+    drawingContext.strokeStyle = "#AAAA00"
     if (switchLines) {
-      drawingContext.strokeStyle = "#AAAA00"
-      drawingContext.moveTo(10, 20);
-      drawingContext.lineTo(30, 20);
+      drawingContext.moveTo(145, 10);
+      drawingContext.lineTo(145, 30);
     } else {
-      drawingContext.strokeStyle = "#AAAA00"
-      drawingContext.moveTo(20, 10);
-      drawingContext.lineTo(20, 30);
+      drawingContext.moveTo(135, 20);
+      drawingContext.lineTo(155, 20);
     }
     drawingContext.closePath();
     drawingContext.stroke();
-    drawingContext.drawTextCenter("sans", 10, 50, 25, "space");
+    drawingContext.drawTextCenter("sans", 10, 70, 25, "space to switch to");
   } else {
     drawingContext.drawTextCenter("sans", 10, 30, 25, gamePaused? "tap" : "swipe");
   }
@@ -387,9 +386,9 @@ function drawAll(propuncovered) {
   }
 
   // draw the proportion for each ball, behind balls
-  for ( ballnum in balls) {
-    drawProp(balls[ballnum].rect, propuncovered);
-  }
+  // for ( ballnum in balls) {
+  //   drawProp(balls[ballnum].rect, propuncovered);
+  // }
 
   for ( ballnum in balls) {
     balls[ballnum].draw();
@@ -441,7 +440,7 @@ function drawText() {
   drawingContext.strokeStyle = "rgba("
     + textColor.toString()+",1)";
   //drawingContext.fillStyle = "rgba(0,0,0,.75)";
-  drawingContext.drawTextCenter(font, fontsize, gameWidth/2, y, gameWon?"YOU WIN!!!":"YOU LOSE!!!");
+  drawingContext.drawTextCenter(font, fontsize, gameWidth/2, y, gameWon?"YOU WIN!!!":"Try again!");
   var subheading = "Awesome game";
   if (isBonusRound) {
     subheading = bonusRoundNames[bonusRoundType];
@@ -480,7 +479,8 @@ function drawProp(rect, propuncovered) {
   drawingContext.drawTextCenter( font, fontsize,
     (rect[0] + rect[2]) / 2,
     (rect[1] +rect[3]) / 2,
-    '' + (prop_till_win*100).toFixed(1));
+    '' + (prop_till_win*100).toFixed(1)
+    + '%');
 }
 
 function get_prop_uncovered() {
@@ -608,6 +608,7 @@ function winGame() {
     score += 100 * gameLevel;
   }
   updateScore();
+  updateLevel();
   tryBonusRound();
   //tryFacebookOpenGraphPost();
   //backgroundImage.src = winImageLocation;
@@ -616,7 +617,6 @@ function winGame() {
     $('#continuegamebtn').text('BONUS ' + bonusRoundNames[bonusRoundType] + "!");
   } else {
     gameLevel += 1;
-    updateLevel();
     $('#continuegamebtn').text('Continue to level ' + gameLevel);
   }
   $('#fbsharebtnconnect').show();
