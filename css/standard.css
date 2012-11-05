@@ -122,6 +122,11 @@ body {
 	margin-right:5px;
 }
 
+.darklink {
+	color:#000;
+	
+}
+
 * {	
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
