@@ -24,7 +24,6 @@ var showHelpText = false;
 var initHelpTimer = null;
 var helpTextTime = 5000;
 
-var bonusRoundChance = .5;
 var isBonusRound = false;
 //                         0              1              2             3               4
 var bonusRoundNames = ["Super Speed", "Cross Beam", "Crazy Balls", "Ninja Round", "Gravity"]
@@ -32,7 +31,7 @@ var bonusRoundType = 4;
 var crazyBallChange = 1; // how much balls' velocities change during crazy balls
 var score = 0;
 var gravityDirection = 0;
-var gravityStrength = 1;
+var gravityStrength = .2;
 
 //var shadowOn = 0;
 //no one likes shadows
@@ -78,9 +77,9 @@ function Ball(x, y, r, dx, dy) {
       this.dx = -this.dx;
       if (isBonusRound && bonusRoundType == 4) { // gravity
         if (this.dx > 0) {
-          this.dx = Math.max(this.dx, this.r);
+          this.dx = Math.max(this.dx, this.r/5);
         } else {
-          this.dx = Math.min(this.dx, -this.r)
+          this.dx = Math.min(this.dx, -this.r/5)
         }
       }
     }
@@ -89,9 +88,9 @@ function Ball(x, y, r, dx, dy) {
       this.dy = -this.dy;
       if (isBonusRound && bonusRoundType == 4) { // gravity
         if (this.dy > 0) {
-          this.dy = Math.max(this.dy, this.r);
+          this.dy = Math.max(this.dy, this.r/5);
         } else {
-          this.dy = Math.min(this.dy, -this.r)
+          this.dy = Math.min(this.dy, -this.r/5)
         }
       }
     }
@@ -102,9 +101,9 @@ function Ball(x, y, r, dx, dy) {
     } else if (isBonusRound && bonusRoundType == 4) { // gravity
       switch(gravityDirection) {
         case 0: this.dy -= gravityStrength; break;
-        case 1: this.dx += gravityStrength; break;
-        case 2: this.dy += gravityStrength; break;
-        case 3: this.dx -= gravityStrength; break;
+        // case 1: this.dx += gravityStrength; break;
+        case 1: this.dy += gravityStrength; break;
+        // case 3: this.dx -= gravityStrength; break;
       }
     }
   }
@@ -656,11 +655,13 @@ function loseGame() {
 }
 
 function tryBonusRound() {
-  revertBonusRoundEffects();
-  if (Math.random() < bonusRoundChance) {
+  if (!isBonusRound) {
     isBonusRound = true;
     bonusRoundType = Math.floor(bonusRoundNames.length * Math.random());
     makeBonusRound();
+  } else {
+    revertBonusRoundEffects();
+    isBonusRound = false;
   }
 }
 
@@ -674,7 +675,6 @@ function revertBonusRoundEffects() {
       lineGrowSpeed /= 1.5;
     }
   }
-  isBonusRound = false;
 }
 
 function makeBonusRound() {
@@ -819,7 +819,7 @@ function makeLine(x, y, rect, type ){
   } else {
     lines.push(new Line(x, y, rect, type));
     if (isBonusRound && bonusRoundType == 4) { //gravity
-      gravityDirection = Math.floor(Math.random() * 4);
+      gravityDirection = (1- gravityDirection);//Math.floor(Math.random() * 4);
     }
   }
 }
