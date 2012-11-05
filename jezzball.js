@@ -25,7 +25,7 @@ var initHelpTimer = null;
 var helpTextTime = 5000;
 
 var bonusRoundChance = .5;
-var isBonusRound = true;
+var isBonusRound = false;
 //                         0              1              2             3               4
 var bonusRoundNames = ["Super Speed", "Cross Beam", "Crazy Balls", "Ninja Round", "Gravity"]
 var bonusRoundType = 4;
