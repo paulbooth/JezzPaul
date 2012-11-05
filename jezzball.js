@@ -737,7 +737,6 @@ function initialize()
 	    // canvasElement is not focusable
     	document.onkeydown = keydown;
     	$('#canvas').css('margin','10px');
-    	$('#fbsharebtn').css('margin-left', '10px');
     	//setTimeout(addFacebookIntegration, 10);
 	} else {
 		//document.ontouchstart = document.ontouchmove = document.ontouchend = document.body.ontouchstart = preventDefault;
@@ -964,7 +963,12 @@ function getRandomTip() {
 
 // toggles showing the help info
 function helpToggle() {
-	$('#help').toggle();
+	var $help = $('#help');
+  if ($help.is(":hidden")) {
+    $help.fadeIn();
+  } else {
+    $help.fadeOut();
+  }
 	if (useTouch()) {
 		if ($('#help').is(":visible")) {
 			//console.log("scrolling to:" + (gameHeight + $('#title').height()) )
