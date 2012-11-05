@@ -24,11 +24,15 @@ var showHelpText = false;
 var initHelpTimer = null;
 var helpTextTime = 5000;
 
-var bonusRoundChance = 1;
-var isBonusRound = false;
-var bonusRoundNames = ["Super Speed", "Cross Beam", "Crazy Balls", "Ninja Round"]
-var bonusRoundType = 3;
-var crazyBallChange = 1;
+var bonusRoundChance = .5;
+var isBonusRound = true;
+//                         0              1              2             3               4
+var bonusRoundNames = ["Super Speed", "Cross Beam", "Crazy Balls", "Ninja Round", "Gravity"]
+var bonusRoundType = 4;
+var crazyBallChange = 1; // how much balls' velocities change during crazy balls
+var score = 0;
+var gravityDirection = 0;
+var gravityStrength = 1;
 
 //var shadowOn = 0;
 //no one likes shadows
@@ -72,15 +76,36 @@ function Ball(x, y, r, dx, dy) {
     if (( this.x+this.r > this.rect[2] && this.dx > 0)
       || (this.x-this.r < this.rect[0] && this.dx < 0)) {
       this.dx = -this.dx;
+      if (isBonusRound && bonusRoundType == 4) { // gravity
+        if (this.dx > 0) {
+          this.dx = Math.max(this.dx, this.r);
+        } else {
+          this.dx = Math.min(this.dx, -this.r)
+        }
+      }
     }
     if ((this.y+this.r > this.rect[3] && this.dy > 0)
       || (this.y-this.r < this.rect[1] && this.dy < 0 )) {
       this.dy = -this.dy;
+      if (isBonusRound && bonusRoundType == 4) { // gravity
+        if (this.dy > 0) {
+          this.dy = Math.max(this.dy, this.r);
+        } else {
+          this.dy = Math.min(this.dy, -this.r)
+        }
+      }
     }
     this.checkLineHits();
     if (isBonusRound && bonusRoundType == 2) {// crazy balls
       this.dx += (Math.random() - .5) * crazyBallChange * timeElapsed;
       this.dy += (Math.random() - .5) * crazyBallChange * timeElapsed;
+    } else if (isBonusRound && bonusRoundType == 4) { // gravity
+      switch(gravityDirection) {
+        case 0: this.dy -= gravityStrength; break;
+        case 1: this.dx += gravityStrength; break;
+        case 2: this.dy += gravityStrength; break;
+        case 3: this.dx -= gravityStrength; break;
+      }
     }
   }
 
@@ -578,6 +603,13 @@ function winGame() {
   gameWon = true;
   lineGrowSpeed *= .9;
   gamePaused = true;
+  var prop_completed = 1 - get_prop_uncovered();
+  // increment the score
+  score += Math.round(prop_completed * gameLevel * 1000);
+  if (isBonusRound) {
+    score += 100 * gameLevel;
+  }
+  updateScore();
   tryBonusRound();
   //tryFacebookOpenGraphPost();
   //backgroundImage.src = winImageLocation;
@@ -586,6 +618,7 @@ function winGame() {
     $('#continuegamebtn').text('BONUS ' + bonusRoundNames[bonusRoundType] + "!");
   } else {
     gameLevel += 1;
+    updateLevel();
     $('#continuegamebtn').text('Continue to level ' + gameLevel);
   }
   $('#fbsharebtnconnect').show();
@@ -637,6 +670,8 @@ function revertBonusRoundEffects() {
     if (bonusRoundType == 0) {
       lineGrowSpeed /= 2;
       ballSpeed /= 2.5;
+    } else if (bonusRoundType == 3) { // Ninja
+      lineGrowSpeed /= 1.5;
     }
   }
   isBonusRound = false;
@@ -648,6 +683,8 @@ function makeBonusRound() {
     if (bonusRoundType == 0) {
       lineGrowSpeed *= 2;
       ballSpeed *= 2.5;
+    } else if (bonusRoundType == 3) { // Ninja
+      lineGrowSpeed *= 1.5;
     }
   }
 }
@@ -781,6 +818,9 @@ function makeLine(x, y, rect, type ){
     lines.push(new Line(x, y + 1, rect, 0));
   } else {
     lines.push(new Line(x, y, rect, type));
+    if (isBonusRound && bonusRoundType == 4) { //gravity
+      gravityDirection = Math.floor(Math.random() * 4);
+    }
   }
 }
 
@@ -944,7 +984,8 @@ function makeFacebookPost(image_url) {
     {
      method: 'feed',
      name: 'JezzPaul',
-     caption: 'The best new casual game. I just reached level ' + gameLevel + "!",
+     caption: 'The best new casual game. I just reached level ' + gameLevel + 
+        " with a score of OVER " + (score - 1) + "!",
      description: (
         'Addictively fun, quick game where you trap balls by making ' +
         'lines that block out areas and reveal the random picture ' +
@@ -971,7 +1012,7 @@ function makeOpenGraphPost()
       FB.api(
         '/me/jezzpaul:reach',
         'post',
-        { level: 'http://og.jezzpaul.com:3333/' + gameLevel },
+        { level: 'http://og.jezzpaul.com:3333/' + gameLevel +'?score=' + score},
         function(response) {
            if (!response || response.error) {
               //alert('Error occured');
@@ -1045,17 +1086,21 @@ function continueGame() {
 }
 
 function getRandomTip() {   
-  var tips = ['Share on Facebook to get faster lines!',
-    // 'It\'s always a random picture, but always of a cat. In a sink.',
-    // 'If you need help, there is a help button! Find it.',
-    // 'If you have feedback, please tweet at @jezzpaul',
-    // 'We have a Facebook Page!',
-    // 'Have you tried the mobile version?',
-    // 'Who could you introduce to JezzPaul?',
-    // 'Wow! You got to level ' + gameLevel + '? You should tell your friends!',
-    // 'The balls keep bouncing. Back and forth. Forever.',
-    'Have you tried <u><a href="http://gunnerrunner.com" class="darklink">Gunner Runner</a></u>?']
-    // 'Try spacebar to change line orientation.'];
+  var tips = ['For the love of cats, share this with your friends. And enemies.',
+    'It\'s always a random picture, but always of a cat. In a sink.',
+    'If you need help, there is a help button! Find it. Live your dreams.',
+    'If you have feedback, please tweet at @jezzpaul',
+    'We have a Facebook Page! Good luck finding it!',
+    'Have you tried the mobile version? It works sometimes!',
+    'Who could you beat at JezzPaul?',
+    'Did you notice the BONUS LEVELS!?',
+    'Wow! You got to level ' + gameLevel + '? Big shot!',
+    'The balls keep bouncing. Back and forth. Forever.',
+    'Try to split up the balls. Divide and conquer.',
+    'I accept <u><a href="http://twitter.com/thepaulbooth" class="darklink">pity follows</a></u>.',
+    'Have you tried <u><a href="http://gunnerrunner.com" class="darklink">Gunner Runner</a></u>?',
+    'You can get on the leaderboard with your score of ' + score + ' by connecting to Facebook.',
+    'Try spacebar to change line orientation. The lines can go in either direction.'];
   return tips[Math.floor(Math.random() * tips.length)];
 }
 
@@ -1084,6 +1129,14 @@ function helpToggle() {
         .css('left', '' + (gameWidth/2 - $('#bottom_content').width()/2) + 'px');
     }
   }
+}
+
+function updateScore() {
+  $('#score').text(score);
+}
+
+function updateLevel() {
+  $('#level').text(gameLevel + ( isBonusRound? " BONUS": "" ));
 }
 
 // hides the address bar on mobile by scrolling to 0,1

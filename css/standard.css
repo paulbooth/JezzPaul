@@ -12,14 +12,18 @@
 	/*max-height: 40px;*/
 }
 
-#title {
+.titlestuff {
 	float: left;
 	margin: 0px;
 }
 
+#level_label {
+	margin-left: 10px;
+}
+
 #fbsharebtn {
 	float: left;
-	margin-right: 0px;
+	margin-right: 10px;
 	margin-bottom: 0px;
 	margin-left: 10px;
 	margin-top: 6px;
