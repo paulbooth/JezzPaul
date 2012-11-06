@@ -296,8 +296,10 @@ function drawBackground()
     }
     drawingContext.closePath();
     drawingContext.stroke();
+    drawingContext.strokeStyle = "#000";
     drawingContext.drawTextCenter("sans", 10, 70, 25, "space to switch to");
   } else {
+    drawingContext.strokeStyle = "#000";
     drawingContext.drawTextCenter("sans", 10, 30, 25, gamePaused? "tap" : "swipe");
   }
 }
