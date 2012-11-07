@@ -23,6 +23,7 @@ var fbLoggedIn = false;
 var showHelpText = false;
 var initHelpTimer = null;
 var helpTextTime = 5000;
+var shouldDrawProp = true;
 
 var isBonusRound = false;
 //                         0              1              2             3               4           5
@@ -393,9 +394,11 @@ function drawAll(propuncovered) {
   }
 
   // draw the proportion for each ball, behind balls
-  // for ( ballnum in balls) {
-  //   drawProp(balls[ballnum].rect, propuncovered);
-  // }
+  if (shouldDrawProp) {
+    for ( ballnum in balls) {
+      drawProp(balls[ballnum].rect, propuncovered);
+    }
+  }
 
   for ( ballnum in balls) {
     balls[ballnum].draw();
