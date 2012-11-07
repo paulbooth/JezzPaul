@@ -7,7 +7,7 @@ html(lang='en')
         meta(property='og:description', content='I got to level #{level} and a score of #{score}. Let\'s see you do better!')
     - else
         meta(property='og:description', content='JezzPaul is awesome. I reached level #{level} because I rock at this game. Try it out!')
-    meta(property='og:url', content='http://og.jezzpaul.com:3333/#{level}')
+    meta(property='og:url', content='#{encodeURI('http://og.jezzpaul.com:3333/' + level}')
     meta(property='og:title', content='Level #{level}')
     meta(property='og:image', content='http://catsinsinks.com/images/cats/rotator.php?#{level}')
     title JEZZPAUL

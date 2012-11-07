@@ -27,7 +27,7 @@ var helpTextTime = 5000;
 var isBonusRound = false;
 //                         0              1              2             3               4
 var bonusRoundNames = ["Super Speed", "Cross Beam", "Crazy Balls", "Ninja Round", "Gravity"]
-var bonusRoundType = 4;
+var bonusRoundType = 1;
 var crazyBallChange = 1; // how much balls' velocities change during crazy balls
 var score = 0;
 var gravityDirection = 0;
@@ -100,9 +100,9 @@ function Ball(x, y, r, dx, dy) {
       this.dy += (Math.random() - .5) * crazyBallChange * timeElapsed;
     } else if (isBonusRound && bonusRoundType == 4) { // gravity
       switch(gravityDirection) {
-        case 0: this.dy -= gravityStrength; break;
+        case 0: this.dy += gravityStrength; break;
         // case 1: this.dx += gravityStrength; break;
-        case 1: this.dy += gravityStrength; break;
+        case 1: this.dy -= gravityStrength; break;
         // case 3: this.dx -= gravityStrength; break;
       }
     }
@@ -383,6 +383,9 @@ function drawAll(propuncovered) {
   if (!useTouch()) {
     drawMouseCursor();
   }
+  if (isBonusRound && bonusRoundType == 4) { // gravity
+    drawGravityIndicator();
+  }
   if (!$.browser.mozilla) {
     drawingContext.setAlpha( gamePaused?.5:1);
   }
@@ -429,6 +432,27 @@ function drawShroud() {
   // drawingContext.rect(mouseX - 25, mouseY - 25, 50, 50);
   drawingContext.closePath();
   drawingContext.fill();
+  drawingContext.stroke();
+}
+
+
+function drawGravityIndicator() {
+  // drawingContext.strokeStyle = "#AAA";
+  var arrowDistLeft = 20, arrowDistDown = 20, arrowHeight = 20, arrowWidth = 10;
+  drawingContext.moveTo(gameWidth - arrowDistLeft, arrowDistDown);
+  drawingContext.lineTo(gameWidth - arrowDistLeft, arrowDistDown + arrowHeight);
+  if (gravityDirection) {
+    drawingContext.moveTo(gameWidth - arrowDistLeft + lineWidth/2, arrowDistDown);
+    drawingContext.lineTo(gameWidth - arrowDistLeft - arrowWidth, arrowDistDown + arrowWidth);
+    drawingContext.moveTo(gameWidth - arrowDistLeft - lineWidth/2, arrowDistDown);
+    drawingContext.lineTo(gameWidth - arrowDistLeft + arrowWidth, arrowDistDown + arrowWidth);
+  } else {
+    drawingContext.moveTo(gameWidth - arrowDistLeft + lineWidth/2, arrowDistDown + arrowHeight);
+    drawingContext.lineTo(gameWidth - arrowDistLeft - arrowWidth, arrowDistDown + arrowHeight - arrowWidth);
+    drawingContext.moveTo(gameWidth - arrowDistLeft - lineWidth/2, arrowDistDown + arrowHeight);
+    drawingContext.lineTo(gameWidth - arrowDistLeft + arrowWidth, arrowDistDown + arrowHeight - arrowWidth);
+  }
+  // drawingContext.closePath();
   drawingContext.stroke();
 }
 
