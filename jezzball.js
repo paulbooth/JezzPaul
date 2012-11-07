@@ -377,7 +377,7 @@ function draw() {
 
 
 function drawAll(propuncovered) {
-  clearCanvas();
+  // clearCanvas();
   if (isBonusRound && bonusRoundType == 5) {
     rotationAngle = (rotationAngle + rotationSpeed) % (2 * Math.PI);
     var transX = gameWidth/2, transY = gameHeight/2;
@@ -738,7 +738,7 @@ function makeBonusRound() {
       lineGrowSpeed *= 1.5;
     } else if (bonusRoundType == 5) { // Rotation
       rotationAngle = 0;
-      rotationSpeed = Math.random() * .4 - .2;  
+      rotationSpeed = Math.random() * .04 - .02;  
     }
   }
 }
