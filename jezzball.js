@@ -1037,7 +1037,7 @@ function makeOpenGraphPost()
       FB.api(
         '/me/jezzpaul:reach',
         'post',
-        { level: 'http://og.jezzpaul.com:3333/' + gameLevel +'?score=' + score},
+        { level: 'http://og.jezzpaul.com:3333/' + gameLevel + (isBonusRound ? " Bonus": "") + '?score=' + score},
         function(response) {
            if (!response || response.error) {
               //alert('Error occured');
