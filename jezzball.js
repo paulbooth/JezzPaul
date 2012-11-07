@@ -22,7 +22,7 @@ var lastUpdateTime = null; // time at last update call
 var fbLoggedIn = false;
 var showHelpText = false;
 var initHelpTimer = null;
-var helpTextTime = 5000;
+var helpTextTime = 2000;
 var winGameContinueTime = 5000;
 var loseGameContinueTime = 3000;
 var continueGameTimer = null;
@@ -342,6 +342,11 @@ function drawHelpText()
     drawingContext.drawTextCenter(font, fontsize, 
       gameWidth/2, y, 
       useTouch()?"Swipe!":"Click!");
+    if (!useTouch()) {
+      drawingContext.drawTextCenter(font, fontsize/2, 
+      gameWidth/2, y + fontsize * 1.5, 
+      "Space switches direction");
+    }
 }
 
 
