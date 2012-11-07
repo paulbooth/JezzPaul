@@ -25,13 +25,15 @@ var initHelpTimer = null;
 var helpTextTime = 5000;
 
 var isBonusRound = false;
-//                         0              1              2             3               4
-var bonusRoundNames = ["Super Speed", "Cross Beam", "Crazy Balls", "Ninja Round", "Gravity"]
+//                         0              1              2             3               4           5
+var bonusRoundNames = ["Super Speed", "Cross Beam", "Crazy Balls", "Ninja Round", "Gravity", "Rotated Round"]
 var bonusRoundType = 1;
 var crazyBallChange = 1; // how much balls' velocities change during crazy balls
 var score = 0;
 var gravityDirection = 0;
 var gravityStrength = .2;
+var rotationAngle = 0;
+var rotationSpeed = .01;
 
 //var shadowOn = 0;
 //no one likes shadows
@@ -234,7 +236,7 @@ function drawCircle(x,y,r)
 }
 
 // clears the canvas
-function clear()
+function clearCanvas()
 {
     drawingContext.clearRect(0,0,gameWidth,gameHeight);
 }
@@ -375,7 +377,17 @@ function draw() {
 
 
 function drawAll(propuncovered) {
-  //clear();
+  clearCanvas();
+  if (isBonusRound && bonusRoundType == 5) {
+    rotationAngle = (rotationAngle + rotationSpeed) % (2 * Math.PI);
+    var transX = gameWidth/2, transY = gameHeight/2;
+    
+    drawingContext.translate(transX -  transX * Math.cos(rotationSpeed), 
+        - transX * Math.sin(rotationSpeed));
+      drawingContext.translate(transY * Math.sin(rotationSpeed), 
+         transY - transY * Math.cos(rotationSpeed));
+      drawingContext.rotate(rotationSpeed);
+  }
   drawBackground();
   if (showHelpText) {
     drawHelpText();
@@ -409,6 +421,12 @@ function drawAll(propuncovered) {
       drawShroud();
     }
   }
+  // if (isBonusRound && bonusRoundType == 5) {
+  //   // rotationAngle = (rotationAngle + rotationSpeed) % (2 * Math.PI);
+  //   // console.log("BOO!");
+  //   // drawingContext.translate(gameWidth/2, gameHeight/2);
+  //   // drawingContext.rotate(rotationSpeed);''
+  // }
 }
 
 function drawShroud() {
@@ -682,7 +700,7 @@ function loseGame() {
 function tryBonusRound() {
   if (!isBonusRound) {
     isBonusRound = true;
-    bonusRoundType = Math.floor(bonusRoundNames.length * Math.random());
+    bonusRoundType = 5//Math.floor(bonusRoundNames.length * Math.random());
     makeBonusRound();
   } else {
     revertBonusRoundEffects();
@@ -698,6 +716,14 @@ function revertBonusRoundEffects() {
       ballSpeed /= 2.5;
     } else if (bonusRoundType == 3) { // Ninja
       lineGrowSpeed /= 1.5;
+    } else if (bonusRoundType == 5) { // Rotation
+      var transX = gameWidth/2, transY = gameHeight/2;
+      
+      drawingContext.translate(transX -  transX * Math.cos(-rotationAngle), 
+        - transX * Math.sin(-rotationAngle));
+      drawingContext.translate(transY * Math.sin(-rotationAngle), 
+         transY - transY * Math.cos(-rotationAngle));
+      drawingContext.rotate(-rotationAngle);
     }
   }
 }
@@ -710,6 +736,9 @@ function makeBonusRound() {
       ballSpeed *= 2.5;
     } else if (bonusRoundType == 3) { // Ninja
       lineGrowSpeed *= 1.5;
+    } else if (bonusRoundType == 5) { // Rotation
+      rotationAngle = 0;
+      rotationSpeed = Math.random() * .4 - .2;  
     }
   }
 }
@@ -830,6 +859,11 @@ function addRandomBall(rect) {
       r,
       (Math.random() * ballSpeed + 1)*(Math.random() > .5?-1:1),
       (Math.random() * ballSpeed + 1)*(Math.random() > .5?-1:1)  );
+    // var ball = new Ball(width/2,
+    //   height/2,
+    //   r,
+    //   0,
+    //   0  );
     ball.rect = rect;
     balls.push(ball);
 }
@@ -944,7 +978,7 @@ function initialize()
     
     CanvasTextFunctions.enable(drawingContext);
     initializeGame();
-    draw();
+    window.requestAnimFrame(draw, canvasElement);
     initHelpTimer = setTimeout(function() {
       showHelpText = true;
     }, helpTextTime);
