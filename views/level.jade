@@ -4,7 +4,7 @@ html(lang='en')
     meta(property='fb:app_id', content='151296288348494')
     meta(property='og:type', content='jezzpaul:level')
     - if(score)
-        meta(property='og:description', content='I got to level #{level} and a score of #{score}. Beat that!')
+        meta(property='og:description', content='I got to Level #{level} and I have a score of #{score}. Beat that!')
     - else
         meta(property='og:description', content='JezzPaul is awesome. I reached level #{level} because I rock at this game. Try it out!')
     - var ogurl = encodeURI('http://og.jezzpaul.com:3333/' + level + (score ? "?score="+score : ""))
