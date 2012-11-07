@@ -690,7 +690,7 @@ function loseGame() {
 function tryBonusRound() {
   if (!isBonusRound) {
     isBonusRound = true;
-    bonusRoundType = 5//Math.floor(bonusRoundNames.length * Math.random());
+    bonusRoundType = Math.floor(bonusRoundNames.length * Math.random());
     makeBonusRound();
   } else {
     revertBonusRoundEffects();
