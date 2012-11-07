@@ -23,6 +23,10 @@ var fbLoggedIn = false;
 var showHelpText = false;
 var initHelpTimer = null;
 var helpTextTime = 5000;
+var winGameContinueTime = 5000;
+var loseGameContinueTime = 3000;
+var continueGameTimer = null;
+
 var shouldDrawProp = true;
 
 var isBonusRound = false;
@@ -638,6 +642,7 @@ function winGame() {
   gameWon = true;
   lineGrowSpeed *= .9;
   gamePaused = true;
+  setContinueGameTimer(winGameContinueTime);
   var prop_completed = 1 - get_prop_uncovered();
   // increment the score
   score += Math.round(prop_completed * gameLevel * 1000);
@@ -686,6 +691,7 @@ function loseGame() {
     lineGrowSpeed += .1;
     gamePaused = true;
     gameWon = false;
+    setContinueGameTimer(loseGameContinueTime);
     //backgroundImage.src = loseImageLocation;
     //initializeGame();
 }
@@ -741,6 +747,18 @@ function makeBonusRound() {
           drawingContext.rotate(rotationAngle);
       } 
     }
+  }
+}
+
+
+function setContinueGameTimer(time) {
+  continueGameTimer = setTimeout(continueGame, time);
+}
+
+function clearContinueGameTimer() {
+  if (continueGameTimer) {
+    clearTimeout(continueGameTimer);
+    continueGameTimer = null;
   }
 }
 
@@ -888,6 +906,7 @@ function initializeGame()
 {
   gamePaused = false;
   $('#fbconnect').fadeOut();
+  clearContinueGameTimer();
   // hideLoginButton();
     balls = [];
     lines = [];
@@ -1037,6 +1056,7 @@ function addFacebookIntegration() {
 }
 
 function makeFacebookPost(image_url) {
+  clearContinueGameTimer();
   if (!image_url) {
     image_url = 'http://catsinsinks.com/images/cats/rotator.php?'+Math.random();
   }
@@ -1109,6 +1129,7 @@ function tryFacebookOpenGraphPost() {
 }
 
 function facebookLogin() {
+  clearContinueGameTimer();
     FB.login(function(response) {
         if (response.authResponse) {
             // connected
