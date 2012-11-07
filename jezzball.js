@@ -378,16 +378,6 @@ function draw() {
 
 function drawAll(propuncovered) {
   // clearCanvas();
-  if (isBonusRound && bonusRoundType == 5) {
-    rotationAngle = (rotationAngle + rotationSpeed) % (2 * Math.PI);
-    var transX = gameWidth/2, transY = gameHeight/2;
-    
-    drawingContext.translate(transX -  transX * Math.cos(rotationSpeed), 
-        - transX * Math.sin(rotationSpeed));
-      drawingContext.translate(transY * Math.sin(rotationSpeed), 
-         transY - transY * Math.cos(rotationSpeed));
-      drawingContext.rotate(rotationSpeed);
-  }
   drawBackground();
   if (showHelpText) {
     drawHelpText();
@@ -700,7 +690,7 @@ function loseGame() {
 function tryBonusRound() {
   if (!isBonusRound) {
     isBonusRound = true;
-    bonusRoundType = Math.floor(bonusRoundNames.length * Math.random());
+    bonusRoundType = 5//Math.floor(bonusRoundNames.length * Math.random());
     makeBonusRound();
   } else {
     revertBonusRoundEffects();
@@ -737,8 +727,16 @@ function makeBonusRound() {
     } else if (bonusRoundType == 3) { // Ninja
       lineGrowSpeed *= 1.5;
     } else if (bonusRoundType == 5) { // Rotation
-      rotationAngle = 0;
-      rotationSpeed = Math.random() * .04 - .02;  
+      rotationAngle = Math.random() * Math.PI * 2;
+      if (isBonusRound && bonusRoundType == 5) { // rotation
+        var transX = gameWidth/2, transY = gameHeight/2;
+        
+        drawingContext.translate(transX -  transX * Math.cos(rotationAngle), 
+            - transX * Math.sin(rotationAngle));
+          drawingContext.translate(transY * Math.sin(rotationAngle), 
+             transY - transY * Math.cos(rotationAngle));
+          drawingContext.rotate(rotationAngle);
+      } 
     }
   }
 }
