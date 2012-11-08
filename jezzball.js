@@ -1202,13 +1202,9 @@ function getRandomTip() {
 // toggles showing the help info
 function helpToggle() {
   var $help = $('#help');
-  if ($help.is(":hidden")) {
-    $help.fadeIn();
-  } else {
-    $help.fadeOut();
-  }
   if (useTouch()) {
-    if ($('#help').is(":visible")) {
+    if ($help.is(":visible")) {
+      $help.fadeOut();
       //console.log("scrolling to:" + (gameHeight + $('#title').height()) )
       //window.scrollTo(0, gameHeight + $('#title').height())
       //$("#help").animate({ scrollTop: $('#canvas').height()}, 1000);
@@ -1218,10 +1214,17 @@ function helpToggle() {
         .css('left', '' + (gameWidth/2 - $('#bottom_content').width()/2) + 'px');
     } else {
       //window.scrollTo(0,1)
-        $('#bottom_content').css('max-width', '' + gameWidth + 'px')
+      $help.fadeIn();
+      $('#bottom_content').css('max-width', '' + gameWidth + 'px')
         .css('position', 'absolute')
         .css('top', '' + ($('#jezzball_canvas').position().top + gameHeight) + 'px')
         .css('left', '' + (gameWidth/2 - $('#bottom_content').width()/2) + 'px');
+    }
+  } else {
+    if ($help.is(":hidden")) {
+      $help.fadeIn();
+    } else {
+      $help.fadeOut();
     }
   }
 }
