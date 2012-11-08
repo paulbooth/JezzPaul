@@ -942,10 +942,19 @@ function initialize()
     canvasElement = document.createElement("canvas");
     canvasElement.id = "jezzball_canvas";
     if (useTouch()) {
-      gameWidth = Math.min(screen.availWidth, screen.width);
+      // get document width/height (with-out scrollbars):
+      if (window.document.compatMode == "CSS1Compat"){ // if IE Standards Mode
+          gameWidth = document.body.offsetWidth;
+          gameHeight = document.body.offsetHeight;
+      }
+      else {
+          gameWidth = document.documentElement.offsetWidth;
+          gameHeight = document.documentElement.offsetHeight;
+      }
+      // gameWidth = Math.min(screen.availWidth, screen.width);
       var titleHeight = $('#titlediv').height(),
       miniTitleHeight = $('#minititle').height();
-      gameHeight = Math.min(screen.availHeight, screen.height) - titleHeight - miniTitleHeight;
+      gameHeight = gameHeight - titleHeight - miniTitleHeight;
       $('#minititle_help').css('max-width', '' + gameWidth + 'px');
       $('.mouse_help').hide();
       $('.touch_help').show();
