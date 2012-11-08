@@ -951,10 +951,10 @@ function initialize()
       //     gameWidth = document.documentElement.offsetWidth;
       //     gameHeight = document.documentElement.offsetHeight;
       // }
-      gameWidth = Math.min(screen.availWidth, screen.width, $(window).width);
+      gameWidth = Math.min(screen.availWidth, screen.width, $(window).width());
       var titleHeight = $('#titlediv').height(),
       miniTitleHeight = $('#minititle').height();
-      gameHeight = Math.min(screen.availHeight, screen.height, $(window).height) - titleHeight - miniTitleHeight;
+      gameHeight = Math.min(screen.availHeight, screen.height, $(window).height()) - titleHeight - miniTitleHeight;
       $('#minititle_help').css('max-width', '' + gameWidth + 'px');
       $('.mouse_help').hide();
       $('.touch_help').show();
