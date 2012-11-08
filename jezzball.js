@@ -704,7 +704,7 @@ function loseGame() {
 function tryBonusRound() {
   if (!isBonusRound) {
     isBonusRound = true;
-    bonusRoundType = Math.floor(bonusRoundNames.length * Math.random());
+    bonusRoundType = Math.floor((bonusRoundNames.length - (useTouch() ? 1 : 0) )* Math.random());
     makeBonusRound();
   } else {
     revertBonusRoundEffects();
