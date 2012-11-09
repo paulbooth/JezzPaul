@@ -29,7 +29,7 @@ var continueGameTimer = null;
 
 var shouldDrawProp = true;
 
-var isBonusRound = true;
+var isBonusRound = false;
 //                         0              1              2             3               4           5
 var bonusRoundNames = ["Super Speed", "Cross Beam", "Crazy Balls", "Ninja Round", "Gravity", "Rotated Round"]
 var bonusRoundType = 1;
