@@ -29,7 +29,7 @@ var continueGameTimer = null;
 
 var shouldDrawProp = true;
 
-var isBonusRound = false;
+var isBonusRound = true;
 //                         0              1              2             3               4           5
 var bonusRoundNames = ["Super Speed", "Cross Beam", "Crazy Balls", "Ninja Round", "Gravity", "Rotated Round"]
 var bonusRoundType = 1;
@@ -129,7 +129,7 @@ function Ball(x, y, r, dx, dy) {
             && line.rect == this.rect) {
             //totes lost
             loseGame();
-
+            return
             //initializeGame();
           }
         }
@@ -143,6 +143,7 @@ function Ball(x, y, r, dx, dy) {
               && line.rect == this.rect) {
             //totes lost
             loseGame();
+            return;
             //initializeGame();
           }
         }
