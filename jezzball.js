@@ -760,6 +760,7 @@ function makeBonusRound() {
 
 
 function setContinueGameTimer(time) {
+  clearContinueGameTimer();
   continueGameTimer = setTimeout(continueGame, time);
 }
 
