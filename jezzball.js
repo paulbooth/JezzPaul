@@ -52,6 +52,8 @@ var touchX, touchY, lastTouchX, lastTouchY;
 // last mouseX and Y for drawing the cursor in mac
 var mouseX = 40, mouseY = 40;
 
+var G_vmlCanvasManager; // so non-IE won't freak out when checking for IE
+
 // set up the requestAnimFrame method with fallbacks
 window.requestAnimFrame = function(){
   return (
@@ -1008,8 +1010,12 @@ function initialize()
     //    document.body.appendChild(canvasElement);
     canvasMinX = canvasElement.offsetLeft;
     canvasMinY = canvasElement.offsetTop;
+    // check if IE and then do the excanvas on it
+    if (G_vmlCanvasManager) {
+      G_vmlCanvasManager.initElement(canvasElement);
+    }
     //should make sure it's not null. whatever...
-  drawingContext = canvasElement.getContext("2d");
+    drawingContext = canvasElement.getContext("2d");
     
     CanvasTextFunctions.enable(drawingContext);
     initializeGame();
