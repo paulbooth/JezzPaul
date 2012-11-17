@@ -709,7 +709,7 @@ function tryBonusRound() {
   if (!isBonusRound) {
     isBonusRound = true;
     do {
-      bonusRoundType = Math.floor((bonusRoundNames.length * Math.random());
+      bonusRoundType = Math.floor(bonusRoundNames.length * Math.random());
     } while (!bonusRoundMobileAllowed[bonusRoundType])
     makeBonusRound();
   } else {
