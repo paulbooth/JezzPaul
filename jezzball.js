@@ -29,11 +29,11 @@ var continueGameTimer = null;
 
 var shouldDrawProp = true;
 
-var isBonusRound = true;
-//                         0              1              2             3               4           5        
+var isBonusRound = false;
+//                         0              1              2             3               4           5
 var bonusRoundNames = ["Super Speed", "Cross Beam", "Crazy Balls", "Ninja Round", "Gravity", "Rotated Round"];
 var bonusRoundMobileAllowed = [true,  true,         true,          false,         true,      true];
-var bonusRoundType = 6;
+var bonusRoundType = 1;
 var crazyBallChange = 1; // how much balls' velocities change during crazy balls
 var score = 0;
 var gravityDirection = 0;
@@ -153,7 +153,7 @@ function Ball(x, y, r, dx, dy) {
       }
     }
   }
-  // draw ball draw
+
   this.draw = function() {
     drawingContext.fillStyle = "rgb(0,"
     +Math.round(this.y/gameHeight*255)+","
@@ -924,17 +924,8 @@ function initializeGame()
     lines = [];
     var rect = [0,0,gameWidth,gameHeight];
     for(var i=0;i<gameLevel;i++)
-      addRandomBall(rect);
+  addRandomBall(rect);
     backgroundImage.src = "http://catsinsinks.com/images/cats/rotator.php?"+Math.random();
-    if (!useTouch()) {
-      var $jezzpaul_img = $('<img></img>');
-      var setNewFont = function () {
-        $jezzpaul_img.attr('src', "http://www.abstractfonts.com/image/font-dyn/" + Math.floor(Math.random() * 5874)+ "/-36/1/JezzPaul.gif")
-      }
-      $jezzpaul_img.error(setNewFont);
-      setNewFont();
-      $('#minititle').empty().append($jezzpaul_img);
-    }
 }
 
 /*function toggleShadow() {
