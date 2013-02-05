@@ -260,7 +260,7 @@ function drawBackground()
     }
     catch(err) {
       //alert(err);
-        backgroundImage = null;
+        // backgroundImage = null;
         drawingContext.beginPath();
       drawingContext.rect(0,0,gameWidth,gameHeight);
       drawingContext.closePath();
@@ -916,6 +916,10 @@ function makeLine(x, y, rect, type ){
 
 function initializeGame()
 {
+  getPuppies(function (puppies) {
+    backgroundImage.src = puppies[Math.floor(Math.random()*puppies.length)];
+  });
+
   gamePaused = false;
   $('#fbconnect').fadeOut();
   clearContinueGameTimer();
@@ -924,8 +928,7 @@ function initializeGame()
     lines = [];
     var rect = [0,0,gameWidth,gameHeight];
     for(var i=0;i<gameLevel;i++)
-  addRandomBall(rect);
-    backgroundImage.src = "http://catsinsinks.com/images/cats/rotator.php?"+Math.random();
+      addRandomBall(rect);
 }
 
 /*function toggleShadow() {
@@ -1083,7 +1086,7 @@ function addFacebookIntegration() {
 function makeFacebookPost(image_url) {
   clearContinueGameTimer();
   if (!image_url) {
-    image_url = 'http://catsinsinks.com/images/cats/rotator.php?'+Math.random();
+    image_url = PUPPIES[Math.floor(Math.random()*PUPPIES.length)];
   }
   FB.ui(
     {
@@ -1260,4 +1263,23 @@ function hideAddressBar() {
 // detects mobile or iPad
 function useTouch() {
   return $.browser.mobile || navigator.userAgent.match(/iPad/i) != null 
+}
+
+
+// scrape the top of r/aww
+function getPuppies(hollaback){
+  $.get('http://www.reddit.com/r/aww/.json?jsonp=?', function (data) {
+    var puppies = data.data.children.map(function(entry) {
+      var url = entry.data.url;
+      // change imgur links to be image urls
+      if (url.toLowerCase().indexOf('imgur') > -1 && url.toLowerCase().indexOf('.jpg') == -1) {
+        url += '.jpg';
+      }
+      return url;
+    }).filter(function(entry) { // remove the list of images page on imgur
+      return entry.indexOf('imgur.com/a/') == -1;
+    });
+
+    hollaback(puppies);
+  }, 'json');
 }
