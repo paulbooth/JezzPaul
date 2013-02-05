@@ -1097,7 +1097,7 @@ function makeFacebookPost(image_url) {
      description: (
         'Addictively fun, quick game where you trap balls by making ' +
         'lines that block out areas and reveal the random picture ' +
-        'of cats in sinks. All your friends play it.'
+        'of adorableness. All your friends play it.'
      ),
      link: 'http://jezzpaul.com',
      picture: image_url
@@ -1279,7 +1279,7 @@ function getPuppies(hollaback){
     }).filter(function(entry) { // remove the list of images page on imgur
       return entry.indexOf('imgur.com/a/') == -1;
     });
-
+    puppies.push("http://catsinsinks.com/images/cats/rotator.php?" + Math.random());
     hollaback(puppies);
   }, 'json');
 }
