@@ -1043,8 +1043,7 @@ $(document).ready(function(){
 });
 
 function removeUnneededElements() {
-  $('#bottom_content').remove();
-  $('#fbconnect').remove();
+  $('#titlediv').remove();
 }
 
 function initializeFacebook() {
@@ -1276,7 +1275,7 @@ function useTouch() {
 }
 
 function isNativeApp() {
-  return window.location.hash.match(/mobile/i) != null;
+  return window.location.search.match(/mobile/i) != null;
 }
 
 // scrape the top of r/aww
