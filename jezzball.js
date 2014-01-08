@@ -973,6 +973,7 @@ function initialize()
     $('#minititle_help').css('max-width', '' + gameWidth + 'px');
     $('.mouse_help').hide();
     $('.touch_help').show();
+    $('#bottom_content').css({'margin':'auto', 'float':'none'});
   }
 
   canvasElement.width = gameWidth;
