@@ -59,11 +59,11 @@ var G_vmlCanvasManager; // so non-IE won't freak out when checking for IE
 window.requestAnimFrame = function(){
   return (
     window.requestAnimFrame            ||
-    window.requestAnimationFrame       || 
-    window.webkitRequestAnimationFrame || 
-    window.mozRequestAnimationFrame    || 
-    window.oRequestAnimationFrame      || 
-    window.msRequestAnimationFrame     || 
+    window.requestAnimationFrame       ||
+    window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame    ||
+    window.oRequestAnimationFrame      ||
+    window.msRequestAnimationFrame     ||
     function(/* function */ callback){
         window.setTimeout(callback, 1000 / 60);
     }
@@ -343,12 +343,12 @@ function drawHelpText()
     drawingContext.strokeStyle = "rgba("
       + textColor.toString()+",1)";
     //drawingContext.fillStyle = "rgba(0,0,0,.75)";
-    drawingContext.drawTextCenter(font, fontsize, 
-      gameWidth/2, y, 
+    drawingContext.drawTextCenter(font, fontsize,
+      gameWidth/2, y,
       useTouch()?"Swipe!":"Click!");
     if (!useTouch()) {
-      drawingContext.drawTextCenter(font, fontsize/2, 
-      gameWidth/2, y + fontsize * 1.5, 
+      drawingContext.drawTextCenter(font, fontsize/2,
+      gameWidth/2, y + fontsize * 1.5,
       "Space switches direction");
     }
 }
@@ -498,7 +498,7 @@ function drawText() {
     subheading = (useTouch()? "Tap" : "Click") + " to continue!";
   }
   drawingContext.drawTextCenter(font, fontsize/2, gameWidth/2, y + fontsize, subheading);
-  
+
   //drawingContext.drawTextCenter(font, fontsize, gameWidth/2, y, gameWon?"YOU WIN!!!":"YOU LOSE!!!");
 }
 
@@ -522,7 +522,7 @@ function drawProp(rect, propuncovered) {
   var font = "sans",
     fontsize = (rect[2] - rect[0]) / 10,
     prop_till_win = (1-propuncovered)/(1-winProportion);
-  drawingContext.strokeStyle = "rgb(" + 
+  drawingContext.strokeStyle = "rgb(" +
     Math.floor((1 - prop_till_win) * 255) + "," +
     Math.floor(prop_till_win * 255)  +
     ",0)";
@@ -692,7 +692,7 @@ function winGame() {
   $('#fbconnect').css('left', "" + (canvasMinX + gameWidth/2 - $('#fbconnect').width()/2) + "px")
     .css('top', '' + (canvasMinY + gameHeight/2 - $('#fbconnect').height()/2) + 'px')
     .fadeIn();
-  
+
 
 }
 
@@ -728,10 +728,10 @@ function revertBonusRoundEffects() {
       lineGrowSpeed /= 1.5;
     } else if (bonusRoundType == 5) { // Rotation
       var transX = gameWidth/2, transY = gameHeight/2;
-      
-      drawingContext.translate(transX -  transX * Math.cos(-rotationAngle), 
+
+      drawingContext.translate(transX -  transX * Math.cos(-rotationAngle),
         - transX * Math.sin(-rotationAngle));
-      drawingContext.translate(transY * Math.sin(-rotationAngle), 
+      drawingContext.translate(transY * Math.sin(-rotationAngle),
          transY - transY * Math.cos(-rotationAngle));
       drawingContext.rotate(-rotationAngle);
     }
@@ -750,13 +750,13 @@ function makeBonusRound() {
       rotationAngle = Math.random() * Math.PI * 2;
       if (isBonusRound && bonusRoundType == 5) { // rotation
         var transX = gameWidth/2, transY = gameHeight/2;
-        
-        drawingContext.translate(transX -  transX * Math.cos(rotationAngle), 
+
+        drawingContext.translate(transX -  transX * Math.cos(rotationAngle),
             - transX * Math.sin(rotationAngle));
-          drawingContext.translate(transY * Math.sin(rotationAngle), 
+          drawingContext.translate(transY * Math.sin(rotationAngle),
              transY - transY * Math.cos(rotationAngle));
           drawingContext.rotate(rotationAngle);
-      } 
+      }
     }
   }
 }
@@ -901,7 +901,7 @@ function addRandomBall(rect) {
 
 function makeLine(x, y, rect, type ){
   if (isBonusRound && bonusRoundType == 1) { // cross beam
-    
+
     lines.push(new Line(x - 1, y, rect, 2));
     lines.push(new Line(x + 1, y, rect, 2));
     lines.push(new Line(x, y - 1, rect, 0));
@@ -948,31 +948,35 @@ function initializeGame()
 
 function initialize()
 {
-  initializeFacebook();
-    canvasElement = document.createElement("canvas");
-    canvasElement.id = "jezzball_canvas";
-    if (useTouch()) {
-      // // get document width/height (with-out scrollbars):
-      // if (window.document.compatMode == "CSS1Compat"){ // if IE Standards Mode
-      //     gameWidth = document.body.offsetWidth;
-      //     gameHeight = document.body.offsetHeight;
-      // }
-      // else {
-      //     gameWidth = document.documentElement.offsetWidth;
-      //     gameHeight = document.documentElement.offsetHeight;
-      // }
-      gameWidth = Math.min(screen.availWidth, screen.width, $(window).width());
-      var titleHeight = $('#titlediv').height(),
-      miniTitleHeight = $('#minititle').height();
-      gameHeight = Math.min(screen.availHeight, screen.height, $(window).height()) - titleHeight - miniTitleHeight;
-      $('#minititle_help').css('max-width', '' + gameWidth + 'px');
-      $('.mouse_help').hide();
-      $('.touch_help').show();
-    }
+  if (isNativeApp()) {
+    removeUnneededElements();
+  } else {
+    initializeFacebook();
+  }
+  canvasElement = document.createElement("canvas");
+  canvasElement.id = "jezzball_canvas";
+  if (useTouch()) {
+    // // get document width/height (with-out scrollbars):
+    // if (window.document.compatMode == "CSS1Compat"){ // if IE Standards Mode
+    //     gameWidth = document.body.offsetWidth;
+    //     gameHeight = document.body.offsetHeight;
+    // }
+    // else {
+    //     gameWidth = document.documentElement.offsetWidth;
+    //     gameHeight = document.documentElement.offsetHeight;
+    // }
+    gameWidth = Math.min(screen.availWidth, screen.width, $(window).width());
+    var titleHeight = $('#titlediv').height(),
+    miniTitleHeight = $('#minititle').height();
+    gameHeight = Math.min(screen.availHeight, screen.height, $(window).height()) - titleHeight - miniTitleHeight;
+    $('#minititle_help').css('max-width', '' + gameWidth + 'px');
+    $('.mouse_help').hide();
+    $('.touch_help').show();
+  }
 
-    canvasElement.width = gameWidth;
-    canvasElement.height = gameHeight;
-    if (!useTouch()) {
+  canvasElement.width = gameWidth;
+  canvasElement.height = gameHeight;
+  if (!useTouch()) {
       canvasElement.onmousedown = mousedown;
       canvasElement.onmousemove = mousemove;
       // canvasElement is not focusable
@@ -1023,7 +1027,7 @@ function initialize()
     }
     //should make sure it's not null. whatever...
     drawingContext = canvasElement.getContext("2d");
-    
+
     CanvasTextFunctions.enable(drawingContext);
     initializeGame();
     window.requestAnimFrame(draw, canvasElement);
@@ -1037,6 +1041,11 @@ function initialize()
 $(document).ready(function(){
   setTimeout(initialize, 300);
 });
+
+function removeUnneededElements() {
+  $('#bottom_content').remove();
+  $('#fbconnect').remove();
+}
 
 function initializeFacebook() {
   window.fbAsyncInit = function() {
@@ -1092,7 +1101,7 @@ function makeFacebookPost(image_url) {
     {
      method: 'feed',
      name: 'JezzPaul',
-     caption: 'The best new casual game. I just reached level ' + gameLevel + 
+     caption: 'The best new casual game. I just reached level ' + gameLevel +
         " with a score of OVER " + (score - 1) + "!",
      description: (
         'Addictively fun, quick game where you trap balls by making ' +
@@ -1137,14 +1146,14 @@ function tryFacebookOpenGraphPost() {
       // the user is logged in and has authenticated your
       // app, and response.authResponse supplies
       // the user's ID, a valid access token, a signed
-      // request, and the time the access token 
+      // request, and the time the access token
       // and signed request each expire
       // var uid = response.authResponse.userID;
       // var accessToken = response.authResponse.accessToken;
       console.log("connected user");
       makeOpenGraphPost();
     } else if (response.status === 'not_authorized') {
-      // the user is logged in to Facebook, 
+      // the user is logged in to Facebook,
       // but has not authenticated your app
       //facebookLogin();
       // showLoginButton();
@@ -1194,7 +1203,7 @@ function continueGame() {
   initializeGame();
 }
 
-function getRandomTip() {   
+function getRandomTip() {
   var tips = ['For the love of cats, share this with your friends. And enemies.',
     'It\'s always a random picture, but always of a cat. In a sink.',
     'If you need help, there is a help button! Find it. Live your dreams.',
@@ -1225,17 +1234,18 @@ function helpToggle() {
       //console.log("scrolling to:" + (gameHeight + $('#title').height()) )
       //window.scrollTo(0, gameHeight + $('#title').height())
       //$("#help").animate({ scrollTop: $('#canvas').height()}, 1000);
-      $('#bottom_content').css('max-width', '' + gameWidth + 'px')
-        .css('position', 'absolute')
-        .css('top', '' + (gameHeight/2 - $('#bottom_content').height()/2 + $('#titlediv').height()) + 'px')
-        .css('left', '' + (gameWidth/2 - $('#bottom_content').width()/2) + 'px');
+      // $('#bottom_content').css('max-width', '' + gameWidth + 'px')
+      //   .css('position', 'absolute')
+      //   .css('top', '' + ($('#jezzball_canvas').position().top + gameHeight) + 'px')
+      //   .css('left', '' + (gameWidth/2 - $('#bottom_content').width()/2) + 'px');
     } else {
       //window.scrollTo(0,1)
       $help.fadeIn();
-      $('#bottom_content').css('max-width', '' + gameWidth + 'px')
-        .css('position', 'absolute')
-        .css('top', '' + ($('#jezzball_canvas').position().top + gameHeight) + 'px')
-        .css('left', '' + (gameWidth/2 - $('#bottom_content').width()/2) + 'px');
+
+      // $('#bottom_content').css('max-width', '' + gameWidth + 'px')
+      //   .css('position', 'absolute')
+      //   .css('top', '' + (gameHeight/2 - $('#bottom_content').height()/2 + $('#titlediv').height()) + 'px')
+      //   .css('left', '' + (gameWidth/2 - $('#bottom_content').width()/2) + 'px');
     }
   } else {
     if ($help.is(":hidden")) {
@@ -1260,11 +1270,14 @@ function hideAddressBar() {
 }
 
 // tells you whether there is touch capabilities
-// detects mobile or iPad
+// detects mobile or iPad or whether we are at #mobile
 function useTouch() {
-  return $.browser.mobile || navigator.userAgent.match(/iPad/i) != null 
+  return isNativeApp() || $.browser.mobile || navigator.userAgent.match(/iPad/i) != null;
 }
 
+function isNativeApp() {
+  return window.location.hash.match(/mobile/i) != null;
+}
 
 // scrape the top of r/aww
 function getPuppies(hollaback){
