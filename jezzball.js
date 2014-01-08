@@ -32,7 +32,7 @@ var shouldDrawProp = true;
 var isBonusRound = false;
 //                         0              1              2             3               4           5
 var bonusRoundNames = ["Super Speed", "Cross Beam", "Crazy Balls", "Ninja Round", "Gravity", "Rotated Round"];
-var bonusRoundMobileAllowed = [true,  true,         true,          false,         true,      true];
+var bonusRoundMobileAllowed = [true,  true,         true,          false,         true,      false];
 var bonusRoundType = 1;
 var crazyBallChange = 1; // how much balls' velocities change during crazy balls
 var score = 0;
@@ -710,7 +710,7 @@ function tryBonusRound() {
     isBonusRound = true;
     do {
       bonusRoundType = Math.floor(bonusRoundNames.length * Math.random());
-    } while (!bonusRoundMobileAllowed[bonusRoundType])
+    } while (useTouch() && !bonusRoundMobileAllowed[bonusRoundType])
     makeBonusRound();
   } else {
     revertBonusRoundEffects();
