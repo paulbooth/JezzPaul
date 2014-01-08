@@ -950,6 +950,7 @@ function initialize()
 {
   if (isNativeApp()) {
     removeUnneededElements();
+    $('a#mytweetlink').attr('href', 'twitter://user?screen_name=thepaulbooth')
   } else {
     initializeFacebook();
   }
@@ -1044,6 +1045,7 @@ $(document).ready(function(){
 
 function removeUnneededElements() {
   $('#titlediv').remove();
+  $('#fbloginconnect').remove();
 }
 
 function initializeFacebook() {
