@@ -688,7 +688,7 @@ function winGame() {
     console.log("No Facebook.")
     $('#fbloginconnect').show();
   }
-  $('#minititle').text('' + (canvasMinX + gameWidth/2 - $('#fbconnect').width()/2) + ', ' + (canvasMinY + gameHeight/2 - $('#fbconnect').height()/2))
+  $('#minititle').text('' + (canvasMinX + gameWidth/2 - $('#fbconnect').width()/2) + ', ' + (canvasMinY + gameHeight/2 - $('#fbconnect').height()/2) + " canvasminx:" + canvasMinX + " gW/2:" + (gameWidth/2) + " fbconnect/2" + ($('#fbconnect').width()/2))
   $('#fbconnect').css('left', "" + (canvasMinX + gameWidth/2 - $('#fbconnect').width()/2) + "px")
     .css('top', '' + (canvasMinY + gameHeight/2 - $('#fbconnect').height()/2) + 'px')
     .fadeIn();
