@@ -689,9 +689,14 @@ function winGame() {
     $('#fbloginconnect').show();
   }
   // $('#title').text('' + (canvasMinX + gameWidth/2 - $('#fbconnect').width()/2) + ', ' + (canvasMinY + gameHeight/2 - $('#fbconnect').height()/2))
-  $('#fbconnect').css('left', "" + (canvasMinX + gameWidth/2 - $('#fbconnect').width()/2) + "px")
-    .css('top', '' + (canvasMinY + gameHeight/2 - $('#fbconnect').height()/2) + 'px')
-    .fadeIn();
+  if (!useTouch()) {
+    // if we are not on touch, we need to center the stuff on the actual game board
+    $('#fbconnect').css('left', "" + (canvasMinX + gameWidth/2 - $('#fbconnect').width()/2) + "px")
+      .css('top', '' + (canvasMinY + gameHeight/2 - $('#fbconnect').height()/2) + 'px')
+      .fadeIn();
+  } else {
+    $('#fbconnect').fadeIn();
+  }
 
 
 }
