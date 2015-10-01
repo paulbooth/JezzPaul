@@ -1295,7 +1295,7 @@ function getPuppies(hollaback){
       // and gifv formats
       return url.indexOf('imgur.com/a/') == -1 && !url.endsWith('.gifv');
     });
-    puppies.push("http://catsinsinks.com/images/cats/rotator.php?" + Math.random());
+    puppies.push("http://www.catsinsinks.com/cats/rotator.php?" + Math.random());
     hollaback(puppies);
   }, 'json');
 }
