@@ -402,9 +402,7 @@ function drawAll(propuncovered) {
   if (isBonusRound && bonusRoundType == 4) { // gravity
     drawGravityIndicator();
   }
-  if (!$.browser.mozilla) {
-    drawingContext.setAlpha( gamePaused?.5:1);
-  }
+  drawingContext.globalAlpha = gamePaused ? .5 : 1
 
   // draw the proportion for each ball, behind balls
   if (shouldDrawProp) {
@@ -1286,13 +1284,16 @@ function getPuppies(hollaback){
   $.get('http://www.reddit.com/r/aww/.json?jsonp=?', function (data) {
     var puppies = data.data.children.map(function(entry) {
       var url = entry.data.url;
+
       // change imgur links to be image urls
-      if (url.toLowerCase().indexOf('imgur') > -1 && url.toLowerCase().indexOf('.jpg') == -1) {
+      if (url.toLowerCase().indexOf('http://imgur') > -1 && url.toLowerCase().indexOf('.jpg') == -1) {
         url += '.jpg';
       }
       return url;
-    }).filter(function(entry) { // remove the list of images page on imgur
-      return entry.indexOf('imgur.com/a/') == -1;
+    }).filter(function(url) {
+      // remove the list of images page on imgur
+      // and gifv formats
+      return url.indexOf('imgur.com/a/') == -1 && !url.endsWith('.gifv');
     });
     puppies.push("http://catsinsinks.com/images/cats/rotator.php?" + Math.random());
     hollaback(puppies);
